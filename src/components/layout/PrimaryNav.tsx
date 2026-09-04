@@ -16,7 +16,6 @@ export const MAIN_NAV_ITEMS: NavItem[] = [
   { label: 'Import Client Data', href: '/Admin/ImportClient' },
   { label: 'Use Report', href: '/Report/Usage' },
   { label: 'Client Administration', href: '/DynamicClient' },
-  { label: 'ESL Management', href: '/ESL/Management' },
   { label: 'Your Account', href: '/Account/Edit/1' },
   { label: 'Log out', href: '/Account/Logout' },
 ];

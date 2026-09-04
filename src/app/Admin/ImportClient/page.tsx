@@ -6,23 +6,15 @@ import {
   FileSpreadsheet,
   FileDown,
   CheckCircle2,
-  AlertCircle,
   Clock,
-  ArrowRight,
-  RotateCcw,
   Download,
-  FileCheck,
-  AlertTriangle,
 } from 'lucide-react';
 import { AppShell } from '@/components/layout/AppShell';
 import { Button } from '@/components/ui/Button';
 import { Dropzone } from '@/components/ui/Dropzone';
-import { DataTable, Column } from '@/components/ui/DataTable';
-import { StatusBadge } from '@/components/ui/StatusBadge';
-import { Modal } from '@/components/ui/Modal';
 import { ClientService } from '@/services/clientService';
 import { ImportService } from '@/services/importService';
-import { Client, ImportRecord, ImportErrorDetail } from '@/types';
+import { Client, ImportErrorDetail } from '@/types';
 import { useToast } from '@/components/ui/ToastContext';
 
 export default function ImportClientDataPage() {
@@ -30,7 +22,6 @@ export default function ImportClientDataPage() {
   const [clients, setClients] = useState<Client[]>([]);
   const [selectedClientId, setSelectedClientId] = useState('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [importHistory, setImportHistory] = useState<ImportRecord[]>([]);
 
   // Workflow states
   const [isProcessing, setIsProcessing] = useState(false);
@@ -41,19 +32,11 @@ export default function ImportClientDataPage() {
     errors: ImportErrorDetail[];
   } | null>(null);
 
-  // Error inspector modal
-  const [inspectingRecord, setInspectingRecord] = useState<ImportRecord | null>(null);
-
   useEffect(() => {
     const list = ClientService.getClients();
     setClients(list);
     if (list.length > 0) setSelectedClientId(list[0].id);
-    setImportHistory(ImportService.getHistory());
   }, []);
-
-  const refreshHistory = () => {
-    setImportHistory(ImportService.getHistory());
-  };
 
   const handleFileSelect = (file: File) => {
     setSelectedFile(file);
@@ -81,26 +64,6 @@ export default function ImportClientDataPage() {
       const rowCount = Math.floor(Math.random() * 3000) + 1200;
       const result = ImportService.generateMockValidation(selectedFile.name, clientName, rowCount);
       setValidationResult(result);
-
-      // Save to history
-      const newRecord = ImportService.addRecord({
-        fileName: selectedFile.name,
-        fileType: selectedFile.name.endsWith('.csv')
-          ? 'CSV Document'
-          : selectedFile.name.endsWith('.xlsx')
-          ? 'Excel Spreadsheet'
-          : 'XML Data Feed',
-        fileSize: `${(selectedFile.size / (1024 * 1024)).toFixed(1)} MB`,
-        clientName,
-        uploadedBy: 'Alexander Cross',
-        recordCount: rowCount,
-        validCount: result.validCount,
-        errorCount: result.errorCount,
-        status: result.errorCount === 0 ? 'Success' : result.validCount === 0 ? 'Failed' : 'Partial',
-        errors: result.errors,
-      });
-
-      refreshHistory();
       setIsProcessing(false);
 
       if (result.errorCount === 0) {
@@ -140,104 +103,35 @@ export default function ImportClientDataPage() {
     showToast('info', 'Template Downloaded', `Sample ${type} schema downloaded.`);
   };
 
-  const handleDownloadErrorReport = (record: ImportRecord) => {
-    if (!record.errors || record.errors.length === 0) {
-      showToast('info', 'Clean Dataset', 'No errors were logged for this batch.');
-      return;
-    }
-
-    let csvContent = 'data:text/csv;charset=utf-8,Row,Field,Error Description,Sample Value\n';
-    record.errors.forEach((err) => {
-      csvContent += `${err.row},${err.field},"${err.message}","${err.sampleValue}"\n`;
-    });
-
+  const handleDownloadErrorReport = (report: {
+    id: string;
+    fileName: string;
+    fileType: string;
+    fileSize: string;
+    clientName: string;
+    uploadedBy: string;
+    uploadedAt: string;
+    recordCount: number;
+    validCount: number;
+    errorCount: number;
+    status: string;
+    errors: ImportErrorDetail[];
+  }) => {
+    const headers = ['Row', 'Field', 'SampleValue', 'Message'];
+    const rows = report.errors.map((e) =>
+      [e.row, e.field, e.sampleValue, e.message].map((v) => `"${String(v ?? '').replace(/"/g, '""')}"`).join(',')
+    );
+    const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows].join('\n');
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement('a');
     link.setAttribute('href', encodedUri);
-    link.setAttribute('download', `Error_Report_${record.fileName.replace(/\.[^/.]+$/, '')}.csv`);
+    link.setAttribute('download', `${report.clientName}_Error_Report_${report.fileName}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
 
-    showToast('success', 'Error Report Generated', `Exported error log for ${record.fileName}`);
+    showToast('info', 'Error Report Downloaded', `${report.errorCount} flagged rows exported.`);
   };
-
-  const historyColumns: Column<ImportRecord>[] = [
-    {
-      key: 'fileName',
-      header: 'File Name',
-      sortable: true,
-      render: (row) => (
-        <div>
-          <div className="font-bold text-ticketit-navy">{row.fileName}</div>
-          <div className="text-[11px] text-ticketit-text-muted">
-            {row.fileType} • {row.fileSize}
-          </div>
-        </div>
-      ),
-    },
-    {
-      key: 'clientName',
-      header: 'Target Retail Client',
-      sortable: true,
-      render: (row) => <span className="font-semibold text-ticketit-navy">{row.clientName}</span>,
-    },
-    {
-      key: 'uploadedAt',
-      header: 'Uploaded Date',
-      sortable: true,
-      render: (row) => (
-        <div>
-          <div className="text-ticketit-navy">{row.uploadedAt}</div>
-          <div className="text-[11px] text-ticketit-text-muted">By {row.uploadedBy}</div>
-        </div>
-      ),
-    },
-    {
-      key: 'recordCount',
-      header: 'Records',
-      sortable: true,
-      align: 'right',
-      render: (row) => (
-        <div className="text-right">
-          <div className="font-bold text-ticketit-navy">{row.recordCount.toLocaleString()}</div>
-          <div className="text-[11px] text-ticketit-green font-semibold">
-            {row.validCount.toLocaleString()} valid
-          </div>
-        </div>
-      ),
-    },
-    {
-      key: 'status',
-      header: 'Status',
-      sortable: true,
-      align: 'center',
-      render: (row) => <StatusBadge status={row.status} />,
-    },
-    {
-      key: 'action',
-      header: 'Actions',
-      sortable: false,
-      render: (row) => (
-        <div className="flex items-center gap-2">
-          {row.errorCount > 0 ? (
-            <button
-              type="button"
-              onClick={() => setInspectingRecord(row)}
-              className="text-xs font-bold text-ticketit-coral hover:underline flex items-center gap-1"
-            >
-              <AlertTriangle className="w-3.5 h-3.5" />
-              {row.errorCount} Errors
-            </button>
-          ) : (
-            <span className="text-xs text-ticketit-green font-semibold flex items-center gap-1">
-              <CheckCircle2 className="w-3.5 h-3.5" /> Clean
-            </span>
-          )}
-        </div>
-      ),
-    },
-  ];
 
   return (
     <AppShell>
@@ -273,9 +167,9 @@ export default function ImportClientDataPage() {
       </div>
 
       {/* Main Upload Box */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+      <div className="mb-8">
         {/* Left 2 Cols: Target client & Dropzone */}
-        <div className="lg:col-span-2 bg-white border border-ticketit-border rounded-lg p-5 shadow-sm flex flex-col gap-4">
+        <div className="bg-white border border-ticketit-border rounded-lg p-5 shadow-sm flex flex-col gap-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-ticketit-border">
             <div>
               <label className="block text-xs font-bold text-ticketit-navy mb-1">
@@ -417,127 +311,7 @@ export default function ImportClientDataPage() {
             </Button>
           </div>
         </div>
-
-        {/* Right 1 Col: Instructions & System Rules */}
-        <div className="bg-white border border-ticketit-border rounded-lg p-5 shadow-sm flex flex-col justify-between">
-          <div>
-            <div className="flex items-center gap-2 pb-3 border-b border-ticketit-border mb-3">
-              <FileCheck className="w-4 h-4 text-ticketit-pink" />
-              <h3 className="text-sm font-extrabold text-ticketit-navy uppercase tracking-wider">
-                Ingestion Rules
-              </h3>
-            </div>
-
-            <ul className="text-xs text-ticketit-navy/90 space-y-2.5 leading-relaxed">
-              <li className="flex items-start gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-ticketit-pink mt-1.5 flex-shrink-0" />
-                <span>
-                  <strong>Unique Barcode Key:</strong> Each EAN/UPC barcode must map to a single SKU per client partition.
-                </span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-ticketit-pink mt-1.5 flex-shrink-0" />
-                <span>
-                  <strong>Price Formatting:</strong> Decimal numbers with up to 2 places (e.g. <code>4.99</code>). Currency symbols are parsed automatically.
-                </span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-ticketit-pink mt-1.5 flex-shrink-0" />
-                <span>
-                  <strong>Promotion Flags:</strong> Set <code>IsPromo</code> to <code>true</code> or <code>1</code> to trigger promotional display templates on ESL hardware.
-                </span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-ticketit-pink mt-1.5 flex-shrink-0" />
-                <span>
-                  <strong>Automated Rollback:</strong> Batches with &gt; 50% catastrophic errors will halt without updating in-store shelf tags.
-                </span>
-              </li>
-            </ul>
-          </div>
-
-          <div className="mt-6 pt-4 border-t border-ticketit-border bg-gray-50 p-3 rounded">
-            <div className="text-[11px] font-bold text-ticketit-navy">Live Gateway Connection</div>
-            <div className="text-[11px] text-ticketit-text-muted mt-0.5">
-              StandardStoreSetup Sub-GHz RF Base Station active on Channel 4.
-            </div>
-          </div>
-        </div>
       </div>
-
-      {/* Import History Table */}
-      <div className="bg-white border border-ticketit-border rounded-lg p-4 sm:p-5 shadow-sm">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2">
-            <Clock className="w-4 h-4 text-ticketit-navy" />
-            <h2 className="text-sm font-extrabold text-ticketit-navy uppercase tracking-wider">
-              Recent Import Audit History
-            </h2>
-          </div>
-          <button
-            type="button"
-            onClick={refreshHistory}
-            className="text-xs font-semibold text-ticketit-pink hover:underline"
-          >
-            Refresh Log
-          </button>
-        </div>
-
-        <DataTable columns={historyColumns} data={importHistory} keyField="id" initialRowsPerPage={10} />
-      </div>
-
-      {/* Error Details Modal */}
-      {inspectingRecord && (
-        <Modal
-          isOpen={true}
-          onClose={() => setInspectingRecord(null)}
-          title={`Import Error Log: ${inspectingRecord.fileName}`}
-          subtitle={`Client: ${inspectingRecord.clientName} • ${inspectingRecord.errorCount} exceptions`}
-          maxWidth="xl"
-          headerColor="pink"
-        >
-          <div className="flex flex-col gap-4">
-            <div className="max-h-72 overflow-y-auto border border-ticketit-border rounded">
-              <table className="w-full text-left text-xs border-collapse">
-                <thead>
-                  <tr className="bg-ticketit-table-header border-b border-ticketit-border">
-                    <th className="ticketit-th">Row</th>
-                    <th className="ticketit-th">Field</th>
-                    <th className="ticketit-th">Error Message</th>
-                    <th className="ticketit-th">Sample Value</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-[#EAEFF5]">
-                  {inspectingRecord.errors?.map((err, idx) => (
-                    <tr key={idx} className="hover:bg-gray-50">
-                      <td className="ticketit-td font-bold">{err.row}</td>
-                      <td className="ticketit-td font-semibold text-ticketit-coral">{err.field}</td>
-                      <td className="ticketit-td text-ticketit-navy">{err.message}</td>
-                      <td className="ticketit-td font-mono text-[11px] text-gray-600 bg-gray-50">
-                        {err.sampleValue}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            <div className="flex items-center justify-between pt-2 border-t border-ticketit-border">
-              <Button
-                variant="coral"
-                size="sm"
-                onClick={() => handleDownloadErrorReport(inspectingRecord)}
-                icon={<Download className="w-3.5 h-3.5" />}
-              >
-                Download Error Report (.CSV)
-              </Button>
-              <Button variant="outline" size="sm" onClick={() => setInspectingRecord(null)}>
-                Close
-              </Button>
-            </div>
-          </div>
-        </Modal>
-      )}
     </AppShell>
   );
 }

@@ -491,22 +491,20 @@ export const CreateClientWizard: React.FC<CreateClientWizardProps> = ({
                 <button
                   type="button"
                   onClick={() => goToStep(step.id)}
-                  className={`px-3 py-1.5 rounded-lg transition-all whitespace-nowrap select-none flex items-center gap-1.5 ${
-                    isActive
-                      ? 'bg-ticketit-navy text-white shadow-sm font-black ring-2 ring-ticketit-pink/30'
-                      : isCompleted
+                  className={`px-3 py-1.5 rounded-lg transition-all whitespace-nowrap select-none flex items-center gap-1.5 ${isActive
+                    ? 'bg-ticketit-navy text-white shadow-sm font-black ring-2 ring-ticketit-pink/30'
+                    : isCompleted
                       ? 'text-ticketit-green hover:bg-ticketit-green-light font-bold'
                       : 'text-ticketit-text-muted hover:text-ticketit-navy hover:bg-ticketit-bg-light font-semibold'
-                  }`}
+                    }`}
                   title={`Navigate to Step ${step.id}: ${step.title}`}
                 >
-                  <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-black ${
-                    isActive
-                      ? 'bg-ticketit-pink text-white'
-                      : isCompleted
+                  <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-black ${isActive
+                    ? 'bg-ticketit-pink text-white'
+                    : isCompleted
                       ? 'bg-ticketit-green text-white'
                       : 'bg-ticketit-border text-ticketit-text-muted'
-                  }`}>
+                    }`}>
                     {isCompleted ? '✓' : step.id}
                   </span>
                   <span>{step.label}</span>
@@ -556,7 +554,7 @@ export const CreateClientWizard: React.FC<CreateClientWizardProps> = ({
                     Required
                   </span>
                 </div>
-                
+
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-ticketit-text-muted">
                     <Store className="w-4 h-4 text-ticketit-pink" />
@@ -656,240 +654,145 @@ export const CreateClientWizard: React.FC<CreateClientWizardProps> = ({
                   Please upload a file of type png or jpg
                 </p>
 
-                {/* Sample Logos Selector for Instant Rich Experience */}
-                <div className="pt-2 border-t border-ticketit-border">
-                  <div className="text-[11px] font-bold text-ticketit-text-muted uppercase tracking-wider mb-2">
-                    Or select sample retail brand logo:
-                  </div>
-                  <div className="grid grid-cols-3 gap-2">
-                    {[
-                      { name: 'SuperValu Red', bg: 'bg-[#C8102E]', text: 'SUPERVALU' },
-                      { name: 'FreshChoice Green', bg: 'bg-[#007A3D]', text: 'FreshChoice' },
-                      { name: 'Metro Retail Navy', bg: 'bg-ticketit-navy', text: 'METRO' },
-                    ].map((sample) => (
-                      <button
-                        key={sample.name}
-                        type="button"
-                        onClick={() => {
-                          setWizardState((prev) => ({
-                            ...prev,
-                            logoFileName: `${sample.name.toLowerCase().replace(/\s+/g, '_')}_logo.png`,
-                            logoUrl: sample.bg,
-                          }));
-                          showToast('success', 'Logo Attached', `Applied ${sample.name} badge.`);
-                        }}
-                        className="p-2 bg-white border border-ticketit-border hover:border-ticketit-pink/50 rounded-lg flex items-center justify-center gap-1.5 text-xs font-bold text-ticketit-navy shadow-2xs hover:shadow-xs transition-all group"
-                      >
-                        <span className={`w-3 h-3 rounded-full ${sample.bg}`} />
-                        <span className="truncate group-hover:text-ticketit-pink">{sample.name}</span>
-                      </button>
-                    ))}
-                  </div>
-                </div>
+
               </div>
             </div>
 
-            {/* Right Column: Live Retail Preview & Simulation (5 cols) */}
-            <div className="lg:col-span-5 space-y-4">
-              <div className="bg-gradient-to-br from-ticketit-bg-light via-white to-ticketit-pink-subtle/30 border border-ticketit-border rounded-xl p-5 shadow-card">
-                <div className="flex items-center justify-between pb-3 mb-4 border-b border-ticketit-border">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-full bg-ticketit-green animate-ping" />
-                    <h3 className="text-xs font-black uppercase tracking-wider text-ticketit-navy">
-                      Live Retail Preview
-                    </h3>
-                  </div>
-                  <span className="text-[10px] font-extrabold text-ticketit-pink bg-ticketit-pink-light px-2 py-0.5 rounded-full uppercase tracking-wider">
-                    In-Store Sync
-                  </span>
-                </div>
-
-                {/* Realistic Shelf Talker / Ticket Preview */}
-                <div className="bg-white border-2 border-dashed border-ticketit-border rounded-xl p-4 shadow-sm relative overflow-hidden">
-                  {/* Top Ticket Header */}
-                  <div className="flex items-center justify-between pb-2 mb-3 border-b border-gray-100">
-                    <div className="flex items-center gap-2">
-                      <div className="w-6 h-6 rounded bg-ticketit-navy flex items-center justify-center text-white text-[10px] font-black">
-                        {wizardState.clientName ? wizardState.clientName.charAt(0).toUpperCase() : 'T'}
-                      </div>
-                      <span className="text-xs font-black text-ticketit-navy truncate max-w-[140px]">
-                        {wizardState.clientName || 'Client Name Preview'}
-                      </span>
-                    </div>
-                    <span className="text-[9px] font-bold text-white bg-ticketit-green px-1.5 py-0.5 rounded uppercase">
-                      Active
-                    </span>
-                  </div>
-
-                  {/* Product Sample on Ticket */}
-                  <div className="space-y-1.5 text-left">
-                    <div className="text-[10px] font-bold text-ticketit-text-muted uppercase tracking-wider">
-                      Dairy & Eggs • Chilled
-                    </div>
-                    <div className="text-xs font-black text-ticketit-navy">
-                      Anchor Fresh Whole Milk 2L
-                    </div>
-                    <div className="flex items-baseline gap-2 pt-1">
-                      <span className="text-lg font-black text-ticketit-pink tracking-tight">
-                        $3.99
-                      </span>
-                      <span className="text-xs font-bold text-gray-400 line-through">
-                        $4.89
-                      </span>
-                      <span className="text-[10px] font-extrabold text-ticketit-green bg-ticketit-green-light px-1.5 py-0.2 rounded">
-                        SAVE $0.90
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Simulated Barcode */}
-                  <div className="mt-3 pt-2 border-t border-gray-100 flex items-center justify-between text-[10px] text-ticketit-text-muted font-mono">
-                    <span>||| |||| || ||||| |||</span>
-                    <span>9414800104921</span>
-                  </div>
-                </div>
-
-                {/* Quick Status Checklist */}
-                <div className="mt-4 pt-3 border-t border-ticketit-border space-y-2">
-                  <div className="text-[11px] font-bold text-ticketit-navy uppercase tracking-wider">
-                    Configuration Status:
-                  </div>
-                  <div className="space-y-1.5">
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="text-ticketit-text-muted">Trading Name:</span>
-                      <span className={`font-bold ${wizardState.clientName ? 'text-ticketit-green' : 'text-gray-400'}`}>
-                        {wizardState.clientName ? '✓ Specified' : 'Pending input'}
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="text-ticketit-text-muted">Brand Logo:</span>
-                      <span className={`font-bold ${wizardState.logoFileName ? 'text-ticketit-green' : 'text-gray-400'}`}>
-                        {wizardState.logoFileName ? '✓ Logo Attached' : 'Default Badge'}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         )}
 
-        {/* STEP 2: UPLOAD DATA - EXACT MATCH TO REFERENCE SCREENSHOT */}
+        {/* STEP 2: UPLOAD DATA - BRAND THEMED */}
         {currentStep === 2 && (
           <div className="space-y-6">
-            <div>
-              <label className="block text-sm font-bold text-[#24292F] mb-1.5">
-                Data
-              </label>
-
-              {/* Signature Green File Bar matching image */}
-              <div className="bg-[#4BAA38] rounded-md p-1.5 sm:p-2 flex items-center gap-3 shadow-inner">
-                <label className="bg-[#ECEFF3] hover:bg-white text-[#24292F] text-xs font-bold px-3.5 py-1.5 rounded border border-[#BFC8D2] shadow-sm cursor-pointer whitespace-nowrap transition-colors select-none">
-                  Choose File
-                  <input
-                    type="file"
-                    accept=".xlsx,.xls,.csv,.xml"
-                    onChange={handleDataFileUpload}
-                    className="hidden"
-                  />
-                </label>
-                <span className="text-white text-xs sm:text-sm font-bold uppercase tracking-wider truncate select-all">
-                  {wizardState.dataFileName
-                    ? `${wizardState.dataFileName} ${wizardState.dataFileSize ? `(${wizardState.dataFileSize})` : ''}`
-                    : 'NO FILE CHOSEN'}
+            {/* Header & Upload Card */}
+            <div className="bg-ticketit-bg-light/60 border border-ticketit-border rounded-xl p-6 space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div>
+                  <h3 className="text-sm font-black text-ticketit-navy uppercase tracking-wider">
+                    Product Catalog Feed (.XLSX)
+                  </h3>
+                  <p className="text-xs text-ticketit-text-muted mt-0.5">
+                    Upload your store's primary spreadsheet with SKUs, barcodes, descriptions, and retail pricing.
+                  </p>
+                </div>
+                <span className="text-[10px] font-bold text-ticketit-green bg-ticketit-green-light px-2.5 py-0.5 rounded-full uppercase tracking-wider self-start">
+                  Excel / CSV / XML
                 </span>
               </div>
 
-              <p className="text-xs text-gray-700 mt-2 font-medium">
-                Please upload an XLSX file
+              {/* Signature Brand Green Upload Bar */}
+              <div className="bg-gradient-to-r from-ticketit-green to-[#4AA46C] rounded-lg p-2.5 flex items-center justify-between gap-3 shadow-sm border border-ticketit-green">
+                <div className="flex items-center gap-3 min-w-0">
+                  <label className="bg-white hover:bg-ticketit-pink-subtle text-ticketit-navy text-xs font-black px-4 py-2 rounded-md border border-white/60 shadow-xs cursor-pointer whitespace-nowrap transition-all flex items-center gap-2 flex-shrink-0 active:scale-95">
+                    <Upload className="w-4 h-4 text-ticketit-green" />
+                    <span>Choose File</span>
+                    <input
+                      type="file"
+                      accept=".xlsx,.xls,.csv,.xml"
+                      onChange={handleDataFileUpload}
+                      className="hidden"
+                    />
+                  </label>
+                  <span className="text-white text-xs sm:text-sm font-extrabold uppercase tracking-wider truncate">
+                    {wizardState.dataFileName
+                      ? `${wizardState.dataFileName} ${wizardState.dataFileSize ? `(${wizardState.dataFileSize})` : ''}`
+                      : 'NO FILE CHOSEN'}
+                  </span>
+                </div>
+
+                {wizardState.dataFileName && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setWizardState((prev) => ({
+                        ...prev,
+                        dataFileName: '',
+                        dataFileSize: '',
+                        dataRecordCount: 0,
+                        dataSampleRows: [],
+                        dataUploadStatus: 'pending',
+                      }));
+                      showToast('info', 'File Cleared', 'Data file removed.');
+                    }}
+                    className="text-white/80 hover:text-white p-1.5 hover:bg-black/10 rounded transition-colors"
+                    title="Remove File"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                )}
+              </div>
+
+              <p className="text-xs text-ticketit-navy font-semibold flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-ticketit-pink inline-block" />
+                Please upload an XLSX, XLS or CSV file
               </p>
-            </div>
 
-            {/* Quick Demo Preloader */}
-            <div className="flex flex-wrap items-center gap-2 pt-2">
-              <button
-                type="button"
-                onClick={() => {
-                  setWizardState((prev) => ({
-                    ...prev,
-                    dataFileName: 'SuperValu_Weekly_PriceCatalog_2026.xlsx',
-                    dataFileSize: '4.2 MB',
-                    dataRecordCount: 14200,
-                    dataSampleRows: PRESET_SAMPLE_PRODUCTS,
-                    dataUploadStatus: 'validated',
-                  }));
-                  showToast('success', 'Sample XLSX Attached', '14,200 product records loaded.');
-                }}
-                className="px-3 py-1.5 bg-white border border-[#D0D7DE] text-xs font-bold text-ticketit-navy rounded hover:bg-gray-50 flex items-center gap-1.5 shadow-sm"
-              >
-                <FileSpreadsheet className="w-3.5 h-3.5 text-ticketit-green" />
-                <span>Attach Sample Supermarket XLSX (14,200 Products)</span>
-              </button>
-
-              {wizardState.dataFileName && (
+              {/* Quick Sample Action */}
+              <div className="pt-2 flex flex-wrap items-center gap-2 border-t border-ticketit-border">
                 <button
                   type="button"
                   onClick={() => {
                     setWizardState((prev) => ({
                       ...prev,
-                      dataFileName: '',
-                      dataFileSize: '',
-                      dataRecordCount: 0,
-                      dataSampleRows: [],
-                      dataUploadStatus: 'pending',
+                      dataFileName: 'SuperValu_Weekly_PriceCatalog_2026.xlsx',
+                      dataFileSize: '4.2 MB',
+                      dataRecordCount: 14200,
+                      dataSampleRows: PRESET_SAMPLE_PRODUCTS,
+                      dataUploadStatus: 'validated',
                     }));
-                    showToast('info', 'File Cleared', 'Data file removed.');
+                    showToast('success', 'Sample Data Loaded', 'Loaded 14,200 supermarket product records.');
                   }}
-                  className="px-3 py-1.5 bg-white border border-red-200 text-xs font-bold text-red-600 rounded hover:bg-red-50"
+                  className="px-3.5 py-1.5 bg-white border border-ticketit-border text-xs font-bold text-ticketit-navy rounded-lg hover:border-ticketit-pink/50 hover:text-ticketit-pink shadow-xs flex items-center gap-1.5 transition-all"
                 >
-                  Remove File
+                  <FileSpreadsheet className="w-3.5 h-3.5 text-ticketit-green" />
+                  <span>Attach Sample Supermarket Catalog (14,200 Products)</span>
                 </button>
-              )}
+              </div>
             </div>
 
-            {/* Data Inspection Preview Table */}
+            {/* Parsed Spreadsheet Preview Table */}
             {wizardState.dataSampleRows.length > 0 && (
-              <div className="border border-[#D0D7DE] rounded bg-white p-4 mt-4 shadow-sm">
-                <div className="flex items-center justify-between pb-3 mb-3 border-b border-gray-200">
+              <div className="border border-ticketit-border rounded-xl bg-white p-5 shadow-card space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-ticketit-border">
                   <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-full bg-ticketit-green inline-block animate-pulse" />
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-ticketit-navy">
-                      Parsed Spreadsheet Preview ({wizardState.dataRecordCount.toLocaleString()} Total Rows)
+                    <span className="w-2.5 h-2.5 rounded-full bg-ticketit-green animate-pulse" />
+                    <h3 className="text-xs font-black uppercase tracking-wider text-ticketit-navy">
+                      Parsed Spreadsheet Preview ({wizardState.dataRecordCount.toLocaleString()} Total Records)
                     </h3>
                   </div>
-                  <span className="text-[11px] font-bold text-ticketit-green bg-[#EBF7F0] px-2 py-0.5 rounded border border-[#BDE7CC]">
+                  <span className="text-[11px] font-bold text-ticketit-green bg-ticketit-green-light px-2.5 py-0.5 rounded-full border border-ticketit-green/30">
                     ✓ Schema Validated
                   </span>
                 </div>
 
-                <div className="overflow-x-auto">
+                <div className="overflow-x-auto rounded-lg border border-ticketit-border">
                   <table className="w-full text-left text-xs">
                     <thead>
-                      <tr className="bg-[#E8EDF5] text-ticketit-navy font-bold border-b border-[#D9DDE5]">
-                        <th className="p-2">SKU</th>
-                        <th className="p-2">Barcode</th>
-                        <th className="p-2">Description</th>
-                        <th className="p-2">Brand</th>
-                        <th className="p-2">Category</th>
-                        <th className="p-2 text-right">Retail Price</th>
-                        <th className="p-2 text-right">Promo Price</th>
-                        <th className="p-2">Unit Measure</th>
-                        <th className="p-2">Origin</th>
+                      <tr className="bg-ticketit-table-header text-ticketit-navy font-bold border-b border-ticketit-border">
+                        <th className="p-2.5">SKU</th>
+                        <th className="p-2.5">Barcode</th>
+                        <th className="p-2.5">Description</th>
+                        <th className="p-2.5">Brand</th>
+                        <th className="p-2.5">Category</th>
+                        <th className="p-2.5 text-right">Retail Price</th>
+                        <th className="p-2.5 text-right">Promo Price</th>
+                        <th className="p-2.5">Unit Measure</th>
+                        <th className="p-2.5">Origin</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-100">
+                    <tbody className="divide-y divide-ticketit-border-light">
                       {wizardState.dataSampleRows.map((row, idx) => (
-                        <tr key={idx} className={idx % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}>
-                          <td className="p-2 font-mono font-semibold">{row.SKU}</td>
-                          <td className="p-2 font-mono text-gray-600">{row.Barcode}</td>
-                          <td className="p-2 font-medium text-ticketit-navy">{row.Description}</td>
-                          <td className="p-2 text-gray-600">{row.Brand}</td>
-                          <td className="p-2 text-gray-600">{row.Category}</td>
-                          <td className="p-2 text-right font-bold text-ticketit-navy">{row.RetailPrice}</td>
-                          <td className="p-2 text-right font-black text-red-600">{row.PromoPrice}</td>
-                          <td className="p-2 text-gray-600">{row.UnitMeasure}</td>
-                          <td className="p-2">
-                            <span className="px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 font-semibold text-[10px] border border-emerald-200">
+                        <tr key={idx} className={idx % 2 === 0 ? 'bg-white hover:bg-ticketit-pink-subtle/30' : 'bg-ticketit-table-stripe hover:bg-ticketit-pink-subtle/30'}>
+                          <td className="p-2.5 font-mono font-bold text-ticketit-navy">{row.SKU}</td>
+                          <td className="p-2.5 font-mono text-ticketit-text-muted">{row.Barcode}</td>
+                          <td className="p-2.5 font-bold text-ticketit-navy">{row.Description}</td>
+                          <td className="p-2.5 text-ticketit-text-muted">{row.Brand}</td>
+                          <td className="p-2.5 text-ticketit-text-muted">{row.Category}</td>
+                          <td className="p-2.5 text-right font-bold text-ticketit-navy">{row.RetailPrice}</td>
+                          <td className="p-2.5 text-right font-black text-ticketit-pink">{row.PromoPrice}</td>
+                          <td className="p-2.5 text-ticketit-text-muted">{row.UnitMeasure}</td>
+                          <td className="p-2.5">
+                            <span className="px-2 py-0.5 rounded-full bg-ticketit-green-light text-ticketit-green font-bold text-[10px] border border-ticketit-green/20">
                               {row.Origin}
                             </span>
                           </td>
@@ -903,578 +806,357 @@ export const CreateClientWizard: React.FC<CreateClientWizardProps> = ({
           </div>
         )}
 
-        {/* STEP 3: UPLOAD TICKET - EXACT MATCH TO REFERENCE SCREENSHOT */}
+        {/* STEP 3: UPLOAD TICKET & SETTINGS - BRAND THEMED */}
         {currentStep === 3 && (
-          <div className="space-y-5">
-            {/* Field 1: Ticket Background */}
-            <div>
-              <label className="block text-sm font-bold text-[#24292F] mb-1.5">
-                Ticket Background
-              </label>
-              <div className="bg-[#4BAA38] rounded-md p-1.5 sm:p-2 flex items-center gap-3 shadow-inner">
-                <label className="bg-[#ECEFF3] hover:bg-white text-[#24292F] text-xs font-bold px-3.5 py-1.5 rounded border border-[#BFC8D2] shadow-sm cursor-pointer whitespace-nowrap transition-colors select-none">
-                  Choose File
-                  <input
-                    type="file"
-                    accept=".png,.pdf,.ai,.svg"
-                    onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      if (file) {
-                        setWizardState((prev) => ({
-                          ...prev,
-                          ticketBackgroundFileName: file.name,
-                        }));
-                        showToast('success', 'Background Uploaded', `${file.name} attached.`);
-                      }
-                    }}
-                    className="hidden"
-                  />
-                </label>
-                <span className="text-white text-xs sm:text-sm font-bold uppercase tracking-wider truncate">
-                  {wizardState.ticketBackgroundFileName || 'NO FILE CHOSEN'}
-                </span>
-              </div>
-              <p className="text-xs text-gray-700 mt-1.5 font-medium">
-                Please upload a PNG, PDF or AI file
-              </p>
-            </div>
-
-            {/* Field 2: Ticket */}
-            <div>
-              <label className="block text-sm font-bold text-[#24292F] mb-1.5">
-                Ticket
-              </label>
-              <div className="bg-[#4BAA38] rounded-md p-1.5 sm:p-2 flex items-center gap-3 shadow-inner">
-                <label className="bg-[#ECEFF3] hover:bg-white text-[#24292F] text-xs font-bold px-3.5 py-1.5 rounded border border-[#BFC8D2] shadow-sm cursor-pointer whitespace-nowrap transition-colors select-none">
-                  Choose File
-                  <input
-                    type="file"
-                    accept=".xml,.tkt,.json"
-                    onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      if (file) {
-                        setWizardState((prev) => ({
-                          ...prev,
-                          ticketXmlFileName: file.name,
-                        }));
-                        showToast('success', 'Ticket XML Uploaded', `${file.name} attached.`);
-                      }
-                    }}
-                    className="hidden"
-                  />
-                </label>
-                <span className="text-white text-xs sm:text-sm font-bold uppercase tracking-wider truncate">
-                  {wizardState.ticketXmlFileName || 'NO FILE CHOSEN'}
-                </span>
-              </div>
-              <p className="text-xs text-gray-700 mt-1.5 font-medium">
-                Please upload an XML file
-              </p>
-            </div>
-
-            {/* Section: Ticket Settings */}
-            <div className="pt-2">
-              <h3 className="text-base font-bold text-[#24292F] mb-3">
-                Ticket Settings
-              </h3>
-
-              <div className="border border-[#D0D7DE] rounded-sm bg-[#F9FAFB] p-4 sm:p-6 space-y-5">
-                {/* Subheading: Printing settings */}
-                <div className="space-y-4">
-                  <h4 className="text-sm font-bold text-[#24292F]">
-                    Printing settings
-                  </h4>
-
-                  {/* Paper Size */}
-                  <div>
-                    <label className="block text-xs font-medium text-gray-700 mb-1">
-                      Paper Size (custom will take the size from the xml file)
-                    </label>
-                    <select
-                      value={wizardState.paperSize}
-                      onChange={(e) =>
-                        setWizardState({
-                          ...wizardState,
-                          paperSize: e.target.value as 'A4' | 'A3' | 'A5' | 'Letter' | 'Custom',
-                        })
-                      }
-                      className="w-full px-3 py-2 text-xs bg-white border border-[#D0D7DE] rounded text-[#24292F] focus:border-[#0084B4] focus:outline-none"
-                    >
-                      <option value="A4">A4</option>
-                      <option value="A3">A3</option>
-                      <option value="A5">A5</option>
-                      <option value="Letter">Letter</option>
-                      <option value="Custom">Custom</option>
-                    </select>
-                  </div>
-
-                  {/* Orientation */}
-                  <div>
-                    <label className="block text-xs font-medium text-gray-700 mb-1">
-                      Orientation
-                    </label>
-                    <select
-                      value={wizardState.orientation}
-                      onChange={(e) =>
-                        setWizardState({
-                          ...wizardState,
-                          orientation: e.target.value as 'Portrait' | 'Landscape',
-                        })
-                      }
-                      className="w-full px-3 py-2 text-xs bg-white border border-[#D0D7DE] rounded text-[#24292F] focus:border-[#0084B4] focus:outline-none"
-                    >
-                      <option value="Portrait">Portrait</option>
-                      <option value="Landscape">Landscape</option>
-                    </select>
-                  </div>
-
-                  {/* Rows */}
-                  <div>
-                    <label className="block text-xs font-medium text-gray-700 mb-1">
-                      Rows
-                    </label>
-                    <input
-                      type="number"
-                      value={wizardState.rows}
-                      onChange={(e) =>
-                        setWizardState({ ...wizardState, rows: parseInt(e.target.value, 10) || 1 })
-                      }
-                      className="w-full px-3 py-2 text-xs bg-white border border-[#D0D7DE] rounded text-[#24292F] focus:border-[#0084B4] focus:outline-none"
-                    />
-                  </div>
-
-                  {/* Columns */}
-                  <div>
-                    <label className="block text-xs font-medium text-gray-700 mb-1">
-                      Columns
-                    </label>
-                    <input
-                      type="number"
-                      value={wizardState.columns}
-                      onChange={(e) =>
-                        setWizardState({ ...wizardState, columns: parseInt(e.target.value, 10) || 1 })
-                      }
-                      className="w-full px-3 py-2 text-xs bg-white border border-[#D0D7DE] rounded text-[#24292F] focus:border-[#0084B4] focus:outline-none"
-                    />
-                  </div>
-
-                  {/* Margin Formula Description */}
-                  <p className="text-xs font-semibold text-[#24292F] pt-1">
-                    The margins are for the whole page, not an individual ticket, they use the calculation MMx2.52 so 3mm margin would be 3x2.52
-                  </p>
-
-                  {/* Print Margin Offset Container */}
-                  <div className="border border-[#D0D7DE] rounded bg-white p-4 space-y-3">
-                    <div className="text-xs font-bold text-gray-700">
-                      Print Margin Offset
-                    </div>
-
-                    <div>
-                      <label className="block text-[11px] font-medium text-gray-600 mb-0.5">Top</label>
-                      <input
-                        type="text"
-                        value={wizardState.printMarginOffset.top}
-                        onChange={(e) =>
-                          setWizardState({
-                            ...wizardState,
-                            printMarginOffset: { ...wizardState.printMarginOffset, top: e.target.value },
-                          })
-                        }
-                        className="w-full px-3 py-1.5 text-xs bg-white border border-[#D0D7DE] rounded font-mono text-[#24292F]"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-[11px] font-medium text-gray-600 mb-0.5">Right</label>
-                      <input
-                        type="text"
-                        value={wizardState.printMarginOffset.right}
-                        onChange={(e) =>
-                          setWizardState({
-                            ...wizardState,
-                            printMarginOffset: { ...wizardState.printMarginOffset, right: e.target.value },
-                          })
-                        }
-                        className="w-full px-3 py-1.5 text-xs bg-white border border-[#D0D7DE] rounded font-mono text-[#24292F]"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-[11px] font-medium text-gray-600 mb-0.5">Bottom</label>
-                      <input
-                        type="text"
-                        value={wizardState.printMarginOffset.bottom}
-                        onChange={(e) =>
-                          setWizardState({
-                            ...wizardState,
-                            printMarginOffset: { ...wizardState.printMarginOffset, bottom: e.target.value },
-                          })
-                        }
-                        className="w-full px-3 py-1.5 text-xs bg-white border border-[#D0D7DE] rounded font-mono text-[#24292F]"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-[11px] font-medium text-gray-600 mb-0.5">Left</label>
-                      <input
-                        type="text"
-                        value={wizardState.printMarginOffset.left}
-                        onChange={(e) =>
-                          setWizardState({
-                            ...wizardState,
-                            printMarginOffset: { ...wizardState.printMarginOffset, left: e.target.value },
-                          })
-                        }
-                        className="w-full px-3 py-1.5 text-xs bg-white border border-[#D0D7DE] rounded font-mono text-[#24292F]"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Origin Offset Formula Description */}
-                  <p className="text-xs font-semibold text-[#24292F] pt-1">
-                    The calculation for the origins in mm is: MMx2.8346, EG for 2mm it would be: 2x2.8346
-                  </p>
-
-                  {/* Offset X Axis */}
-                  <div>
-                    <label className="block text-xs font-medium text-gray-700 mb-1">
-                      Offset the printing origin X axis, this is per ticket
-                    </label>
-                    <input
-                      type="text"
-                      value={wizardState.offsetOriginX}
-                      onChange={(e) => setWizardState({ ...wizardState, offsetOriginX: e.target.value })}
-                      className="w-full px-3 py-1.5 text-xs bg-white border border-[#D0D7DE] rounded font-mono text-[#24292F]"
-                    />
-                  </div>
-
-                  {/* Offset Y Axis */}
-                  <div>
-                    <label className="block text-xs font-medium text-gray-700 mb-1">
-                      Offset the printing origin Y axis, this is per ticket
-                    </label>
-                    <input
-                      type="text"
-                      value={wizardState.offsetOriginY}
-                      onChange={(e) => setWizardState({ ...wizardState, offsetOriginY: e.target.value })}
-                      className="w-full px-3 py-1.5 text-xs bg-white border border-[#D0D7DE] rounded font-mono text-[#24292F]"
-                    />
-                  </div>
-
-                  {/* Printing Checkboxes */}
-                  <div className="space-y-2 pt-2">
-                    <label className="flex items-center gap-2 cursor-pointer select-none">
-                      <input
-                        type="checkbox"
-                        checked={wizardState.printBackground}
-                        onChange={(e) => setWizardState({ ...wizardState, printBackground: e.target.checked })}
-                        className="rounded border-gray-300 text-[#0084B4] focus:ring-[#0084B4]"
-                      />
-                      <span className="text-xs font-semibold text-[#24292F]">Print Background?</span>
-                    </label>
-
-                    <label className="flex items-center gap-2 cursor-pointer select-none">
-                      <input
-                        type="checkbox"
-                        checked={wizardState.outputPrintCmyk}
-                        onChange={(e) => setWizardState({ ...wizardState, outputPrintCmyk: e.target.checked })}
-                        className="rounded border-gray-300 text-[#0084B4] focus:ring-[#0084B4]"
-                      />
-                      <span className="text-xs font-semibold text-[#24292F]">Output print files as CMYK?</span>
-                    </label>
-
-                    <label className="flex items-center gap-2 cursor-pointer select-none">
-                      <input
-                        type="checkbox"
-                        checked={wizardState.useBleedAndCropMarks}
-                        onChange={(e) => setWizardState({ ...wizardState, useBleedAndCropMarks: e.target.checked })}
-                        className="rounded border-gray-300 text-[#0084B4] focus:ring-[#0084B4]"
-                      />
-                      <span className="text-xs font-semibold text-[#24292F]">
-                        Use bleed and add crop marks? (can only be used with custom page sizes)
-                      </span>
-                    </label>
-
-                    <label className="flex items-center gap-2 cursor-pointer select-none">
-                      <input
-                        type="checkbox"
-                        checked={wizardState.isMultiPagePdf}
-                        onChange={(e) => setWizardState({ ...wizardState, isMultiPagePdf: e.target.checked })}
-                        className="rounded border-gray-300 text-[#0084B4] focus:ring-[#0084B4]"
-                      />
-                      <span className="text-xs font-semibold text-[#24292F]">
-                        Is this a multi page PDF? (can only be used with custom page sizes)
-                      </span>
-                    </label>
-                  </div>
-                </div>
-
-                {/* Subheading: Misc Settings */}
-                <div className="border-t border-[#D0D7DE] pt-4 space-y-3">
-                  <h4 className="text-sm font-bold text-[#24292F]">
-                    Misc Settings
-                  </h4>
-
-                  <label className="flex items-center gap-2 cursor-pointer select-none">
-                    <input
-                      type="checkbox"
-                      checked={wizardState.allowProductsWithoutPrice}
-                      onChange={(e) => setWizardState({ ...wizardState, allowProductsWithoutPrice: e.target.checked })}
-                      className="rounded border-gray-300 text-[#0084B4] focus:ring-[#0084B4]"
-                    />
-                    <span className="text-xs font-semibold text-[#24292F]">Allow Products Without Price?</span>
+          <div className="space-y-6">
+            {/* Top Upload Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {/* Field 1: Ticket Background */}
+              <div className="bg-ticketit-bg-light/60 border border-ticketit-border rounded-xl p-5 space-y-3">
+                <div className="flex items-center justify-between">
+                  <label className="block text-xs font-black text-ticketit-navy uppercase tracking-wider">
+                    Ticket Background
                   </label>
-
-                  <div>
-                    <label className="block text-xs font-medium text-gray-700 mb-1">
-                      Ordering of the ticket, orders in ascending order
+                  <span className="text-[10px] font-bold text-ticketit-pink bg-ticketit-pink-light px-2 py-0.5 rounded-full uppercase tracking-wider">
+                    Vector / AI
+                  </span>
+                </div>
+                <div className="bg-gradient-to-r from-ticketit-green to-[#4AA46C] rounded-lg p-2 flex items-center justify-between gap-3 shadow-sm border border-ticketit-green">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <label className="bg-white hover:bg-ticketit-pink-subtle text-ticketit-navy text-xs font-black px-3.5 py-1.5 rounded-md border border-white/60 shadow-xs cursor-pointer whitespace-nowrap transition-all flex items-center gap-1.5 flex-shrink-0 active:scale-95">
+                      <Upload className="w-3.5 h-3.5 text-ticketit-green" />
+                      <span>Choose File</span>
+                      <input
+                        type="file"
+                        accept=".png,.pdf,.ai,.svg"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            setWizardState((prev) => ({ ...prev, ticketBackgroundFileName: file.name }));
+                            showToast('success', 'Background Uploaded', `${file.name} attached.`);
+                          }
+                        }}
+                        className="hidden"
+                      />
                     </label>
-                    <input
-                      type="number"
-                      value={wizardState.ticketOrdering}
-                      onChange={(e) =>
-                        setWizardState({ ...wizardState, ticketOrdering: parseInt(e.target.value, 10) || 0 })
-                      }
-                      className="w-full px-3 py-1.5 text-xs bg-white border border-[#D0D7DE] rounded font-mono text-[#24292F]"
-                    />
-                  </div>
-                </div>
-
-                {/* Subheading: PNG Output Settings */}
-                <div className="border-t border-[#D0D7DE] pt-4 space-y-3">
-                  <h4 className="text-sm font-bold text-[#24292F]">
-                    PNG Output Settings
-                  </h4>
-
-                  <label className="flex items-center gap-2 cursor-pointer select-none">
-                    <input
-                      type="checkbox"
-                      checked={wizardState.isPngOutput}
-                      onChange={(e) => setWizardState({ ...wizardState, isPngOutput: e.target.checked })}
-                      className="rounded border-gray-300 text-[#0084B4] focus:ring-[#0084B4]"
-                    />
-                    <span className="text-xs font-semibold text-[#24292F]">IsPngOutput</span>
-                  </label>
-
-                  <div>
-                    <label className="block text-xs font-medium text-gray-700 mb-1">PngWidth</label>
-                    <input
-                      type="text"
-                      value={wizardState.pngWidth}
-                      onChange={(e) => setWizardState({ ...wizardState, pngWidth: e.target.value })}
-                      className="w-full px-3 py-1.5 text-xs bg-white border border-[#D0D7DE] rounded font-mono text-[#24292F]"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-medium text-gray-700 mb-1">PngHeight</label>
-                    <input
-                      type="text"
-                      value={wizardState.pngHeight}
-                      onChange={(e) => setWizardState({ ...wizardState, pngHeight: e.target.value })}
-                      className="w-full px-3 py-1.5 text-xs bg-white border border-[#D0D7DE] rounded font-mono text-[#24292F]"
-                    />
-                  </div>
-                </div>
-
-                {/* Subheading: Core settings */}
-                <div className="border-t border-[#D0D7DE] pt-4 space-y-3">
-                  <h4 className="text-sm font-bold text-[#24292F]">
-                    Core settings
-                  </h4>
-
-                  <label className="flex items-center gap-2 cursor-pointer select-none">
-                    <input
-                      type="checkbox"
-                      checked={wizardState.onlyAllowFranchiseesEditLookup}
-                      onChange={(e) =>
-                        setWizardState({ ...wizardState, onlyAllowFranchiseesEditLookup: e.target.checked })
-                      }
-                      className="rounded border-gray-300 text-[#0084B4] focus:ring-[#0084B4]"
-                    />
-                    <span className="text-xs font-semibold text-[#24292F]">
-                      Only allow franchisees to edit lookup fields?
+                    <span className="text-white text-xs sm:text-sm font-extrabold uppercase tracking-wider truncate">
+                      {wizardState.ticketBackgroundFileName || 'NO FILE CHOSEN'}
                     </span>
-                  </label>
+                  </div>
+                </div>
+                <p className="text-xs text-ticketit-navy font-semibold">
+                  Please upload a PNG, PDF, SVG or AI file
+                </p>
+              </div>
 
+              {/* Field 2: Ticket XML Template */}
+              <div className="bg-ticketit-bg-light/60 border border-ticketit-border rounded-xl p-5 space-y-3">
+                <div className="flex items-center justify-between">
+                  <label className="block text-xs font-black text-ticketit-navy uppercase tracking-wider">
+                    Ticket XML Template
+                  </label>
+                  <span className="text-[10px] font-bold text-ticketit-green bg-ticketit-green-light px-2 py-0.5 rounded-full uppercase tracking-wider">
+                    Schema Definition
+                  </span>
+                </div>
+                <div className="bg-gradient-to-r from-ticketit-green to-[#4AA46C] rounded-lg p-2 flex items-center justify-between gap-3 shadow-sm border border-ticketit-green">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <label className="bg-white hover:bg-ticketit-pink-subtle text-ticketit-navy text-xs font-black px-3.5 py-1.5 rounded-md border border-white/60 shadow-xs cursor-pointer whitespace-nowrap transition-all flex items-center gap-1.5 flex-shrink-0 active:scale-95">
+                      <Upload className="w-3.5 h-3.5 text-ticketit-green" />
+                      <span>Choose File</span>
+                      <input
+                        type="file"
+                        accept=".xml,.tkt,.json"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            setWizardState((prev) => ({ ...prev, ticketXmlFileName: file.name }));
+                            showToast('success', 'Ticket XML Uploaded', `${file.name} attached.`);
+                          }
+                        }}
+                        className="hidden"
+                      />
+                    </label>
+                    <span className="text-white text-xs sm:text-sm font-extrabold uppercase tracking-wider truncate">
+                      {wizardState.ticketXmlFileName || 'NO FILE CHOSEN'}
+                    </span>
+                  </div>
+                </div>
+                <p className="text-xs text-ticketit-navy font-semibold">
+                  Please upload an XML or TKT layout file
+                </p>
+              </div>
+            </div>
+
+            {/* Ticket Settings Section */}
+            <div className="bg-white border border-ticketit-border rounded-xl p-6 shadow-card space-y-6">
+              <div className="flex items-center justify-between pb-4 border-b border-ticketit-border">
+                <h3 className="text-base font-black text-ticketit-navy uppercase tracking-wider">
+                  Ticket Print & Layout Parameters
+                </h3>
+                <span className="text-xs font-bold text-ticketit-text-muted">A4 & Thermal Standards</span>
+              </div>
+
+              {/* Grid 1: Layout Core */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-ticketit-navy uppercase tracking-wider mb-1.5">
+                    Paper Size
+                  </label>
+                  <select
+                    value={wizardState.paperSize}
+                    onChange={(e) =>
+                      setWizardState({ ...wizardState, paperSize: e.target.value as any })
+                    }
+                    className="w-full px-3 py-2 text-xs bg-white border border-ticketit-border rounded-lg text-ticketit-navy font-bold focus:border-ticketit-pink focus:outline-none"
+                  >
+                    <option value="A4">A4 (Standard 210 x 297mm)</option>
+                    <option value="A3">A3 (Poster 297 x 420mm)</option>
+                    <option value="A5">A5 (Flyer 148 x 210mm)</option>
+                    <option value="Letter">Letter (US 8.5 x 11 in)</option>
+                    <option value="Custom">Custom (Take from XML)</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-ticketit-navy uppercase tracking-wider mb-1.5">
+                    Orientation
+                  </label>
+                  <select
+                    value={wizardState.orientation}
+                    onChange={(e) =>
+                      setWizardState({ ...wizardState, orientation: e.target.value as any })
+                    }
+                    className="w-full px-3 py-2 text-xs bg-white border border-ticketit-border rounded-lg text-ticketit-navy font-bold focus:border-ticketit-pink focus:outline-none"
+                  >
+                    <option value="Portrait">Portrait</option>
+                    <option value="Landscape">Landscape</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-ticketit-navy uppercase tracking-wider mb-1.5">
+                    Rows per Sheet
+                  </label>
+                  <input
+                    type="number"
+                    value={wizardState.rows}
+                    onChange={(e) =>
+                      setWizardState({ ...wizardState, rows: parseInt(e.target.value, 10) || 1 })
+                    }
+                    className="w-full px-3 py-2 text-xs bg-white border border-ticketit-border rounded-lg text-ticketit-navy font-bold focus:border-ticketit-pink focus:outline-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-ticketit-navy uppercase tracking-wider mb-1.5">
+                    Columns per Sheet
+                  </label>
+                  <input
+                    type="number"
+                    value={wizardState.columns}
+                    onChange={(e) =>
+                      setWizardState({ ...wizardState, columns: parseInt(e.target.value, 10) || 1 })
+                    }
+                    className="w-full px-3 py-2 text-xs bg-white border border-ticketit-border rounded-lg text-ticketit-navy font-bold focus:border-ticketit-pink focus:outline-none"
+                  />
+                </div>
+              </div>
+
+              {/* Margins & Offsets */}
+              <div className="bg-ticketit-bg-light/60 border border-ticketit-border rounded-xl p-4 space-y-3">
+                <div className="text-xs font-black text-ticketit-navy uppercase tracking-wider">
+                  Print Margin Offsets (MM x 2.52)
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   <div>
-                    <label className="block text-xs font-medium text-gray-700 mb-1">Core Departments</label>
-                    <textarea
-                      rows={5}
-                      value={wizardState.coreDepartments}
-                      onChange={(e) => setWizardState({ ...wizardState, coreDepartments: e.target.value })}
-                      className="w-full px-3 py-2 text-xs bg-white border border-[#D0D7DE] rounded font-mono text-[#24292F] focus:outline-none"
+                    <label className="block text-[11px] font-bold text-ticketit-text-muted mb-1">Top</label>
+                    <input
+                      type="text"
+                      value={wizardState.printMarginOffset.top}
+                      onChange={(e) =>
+                        setWizardState({
+                          ...wizardState,
+                          printMarginOffset: { ...wizardState.printMarginOffset, top: e.target.value },
+                        })
+                      }
+                      className="w-full px-3 py-1.5 text-xs bg-white border border-ticketit-border rounded font-mono font-bold"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[11px] font-bold text-ticketit-text-muted mb-1">Right</label>
+                    <input
+                      type="text"
+                      value={wizardState.printMarginOffset.right}
+                      onChange={(e) =>
+                        setWizardState({
+                          ...wizardState,
+                          printMarginOffset: { ...wizardState.printMarginOffset, right: e.target.value },
+                        })
+                      }
+                      className="w-full px-3 py-1.5 text-xs bg-white border border-ticketit-border rounded font-mono font-bold"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[11px] font-bold text-ticketit-text-muted mb-1">Bottom</label>
+                    <input
+                      type="text"
+                      value={wizardState.printMarginOffset.bottom}
+                      onChange={(e) =>
+                        setWizardState({
+                          ...wizardState,
+                          printMarginOffset: { ...wizardState.printMarginOffset, bottom: e.target.value },
+                        })
+                      }
+                      className="w-full px-3 py-1.5 text-xs bg-white border border-ticketit-border rounded font-mono font-bold"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[11px] font-bold text-ticketit-text-muted mb-1">Left</label>
+                    <input
+                      type="text"
+                      value={wizardState.printMarginOffset.left}
+                      onChange={(e) =>
+                        setWizardState({
+                          ...wizardState,
+                          printMarginOffset: { ...wizardState.printMarginOffset, left: e.target.value },
+                        })
+                      }
+                      className="w-full px-3 py-1.5 text-xs bg-white border border-ticketit-border rounded font-mono font-bold"
                     />
                   </div>
                 </div>
+              </div>
+
+              {/* Toggles */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-2">
+                {[
+                  { key: 'printBackground', label: 'Print Background' },
+                  { key: 'outputPrintCmyk', label: 'Output as CMYK' },
+                  { key: 'useBleedAndCropMarks', label: 'Bleed & Crop Marks' },
+                  { key: 'isMultiPagePdf', label: 'Multi-Page PDF' },
+                ].map((item) => (
+                  <label
+                    key={item.key}
+                    className="flex items-center gap-2.5 p-3 bg-white border border-ticketit-border rounded-lg hover:border-ticketit-pink/40 cursor-pointer transition-all shadow-xs"
+                  >
+                    <input
+                      type="checkbox"
+                      checked={(wizardState as any)[item.key]}
+                      onChange={(e) => setWizardState({ ...wizardState, [item.key]: e.target.checked })}
+                      className="w-4 h-4 rounded border-ticketit-border text-ticketit-pink focus:ring-ticketit-pink/20"
+                    />
+                    <span className="text-xs font-bold text-ticketit-navy">{item.label}</span>
+                  </label>
+                ))}
               </div>
             </div>
           </div>
         )}
 
-        {/* STEP 4: TICKET MAPPINGS - EXACT MATCH TO REFERENCE SCREENSHOT */}
+        {/* STEP 4: TICKET MAPPINGS - BRAND THEMED */}
         {currentStep === 4 && (
-          <div className="space-y-5">
-            {/* Field 1: Product Name Field */}
-            <div>
-              <label className="block text-xs font-semibold text-[#24292F] mb-1">
-                Product Name Field
-              </label>
-              <select
-                value={wizardState.productNameField || 'SKU'}
-                onChange={(e) => setWizardState({ ...wizardState, productNameField: e.target.value })}
-                className="w-full px-3 py-2 text-xs bg-white border border-[#D0D7DE] rounded text-[#24292F] focus:border-[#0084B4] focus:outline-none"
-              >
-                {TICKET_MAPPING_FIELD_OPTIONS.map((field) => (
-                  <option key={field} value={field}>
-                    {field}
-                  </option>
-                ))}
-              </select>
+          <div className="space-y-6">
+            {/* Primary Field Selectors */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="bg-ticketit-bg-light/60 border border-ticketit-border rounded-xl p-4 space-y-2">
+                <label className="block text-xs font-black text-ticketit-navy uppercase tracking-wider">
+                  Product Name Field <span className="text-ticketit-pink">*</span>
+                </label>
+                <select
+                  value={wizardState.productNameField || 'Description'}
+                  onChange={(e) => setWizardState({ ...wizardState, productNameField: e.target.value })}
+                  className="w-full px-3 py-2 text-xs bg-white border border-ticketit-border rounded-lg text-ticketit-navy font-bold focus:border-ticketit-pink focus:outline-none"
+                >
+                  {TICKET_MAPPING_FIELD_OPTIONS.map((f) => (
+                    <option key={f} value={f}>
+                      {f}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="bg-ticketit-bg-light/60 border border-ticketit-border rounded-xl p-4 space-y-2">
+                <label className="block text-xs font-black text-ticketit-navy uppercase tracking-wider">
+                  Product ID / SKU Field <span className="text-ticketit-pink">*</span>
+                </label>
+                <select
+                  value={wizardState.productIdField || 'SKU'}
+                  onChange={(e) => setWizardState({ ...wizardState, productIdField: e.target.value })}
+                  className="w-full px-3 py-2 text-xs bg-white border border-ticketit-border rounded-lg text-ticketit-navy font-bold focus:border-ticketit-pink focus:outline-none"
+                >
+                  {TICKET_MAPPING_FIELD_OPTIONS.map((f) => (
+                    <option key={f} value={f}>
+                      {f}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="bg-ticketit-bg-light/60 border border-ticketit-border rounded-xl p-4 space-y-2">
+                <label className="block text-xs font-black text-ticketit-navy uppercase tracking-wider">
+                  Product Price Field <span className="text-ticketit-pink">*</span>
+                </label>
+                <select
+                  value={wizardState.productPriceField || 'PromoPrice'}
+                  onChange={(e) => setWizardState({ ...wizardState, productPriceField: e.target.value })}
+                  className="w-full px-3 py-2 text-xs bg-white border border-ticketit-border rounded-lg text-ticketit-navy font-bold focus:border-ticketit-pink focus:outline-none"
+                >
+                  {TICKET_MAPPING_FIELD_OPTIONS.map((f) => (
+                    <option key={f} value={f}>
+                      {f}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
 
-            {/* Field 2: Product ID Field */}
-            <div>
-              <label className="block text-xs font-semibold text-[#24292F] mb-1">
-                Product ID Field
-              </label>
-              <select
-                value={wizardState.productIdField || 'SKU'}
-                onChange={(e) => setWizardState({ ...wizardState, productIdField: e.target.value })}
-                className="w-full px-3 py-2 text-xs bg-white border border-[#D0D7DE] rounded text-[#24292F] focus:border-[#0084B4] focus:outline-none"
-              >
-                {TICKET_MAPPING_FIELD_OPTIONS.map((field) => (
-                  <option key={field} value={field}>
-                    {field}
-                  </option>
-                ))}
-              </select>
-            </div>
+            {/* Field Permissions Matrix */}
+            <div className="border border-ticketit-border rounded-xl bg-white p-5 shadow-card space-y-4">
+              <div className="flex items-center justify-between pb-3 border-b border-ticketit-border">
+                <h3 className="text-xs font-black uppercase tracking-wider text-ticketit-navy">
+                  Field Permissions & Visibility Matrix
+                </h3>
+                <span className="text-[11px] font-bold text-ticketit-text-muted">
+                  Control which columns store users can view and edit
+                </span>
+              </div>
 
-            {/* Field 3: Product Price Field */}
-            <div>
-              <label className="block text-xs font-semibold text-[#24292F] mb-1">
-                Product Price Field
-              </label>
-              <select
-                value={wizardState.productPriceField || 'SKU'}
-                onChange={(e) => setWizardState({ ...wizardState, productPriceField: e.target.value })}
-                className="w-full px-3 py-2 text-xs bg-white border border-[#D0D7DE] rounded text-[#24292F] focus:border-[#0084B4] focus:outline-none"
-              >
-                {TICKET_MAPPING_FIELD_OPTIONS.map((field) => (
-                  <option key={field} value={field}>
-                    {field}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Section: Mappings Table */}
-            <div className="pt-2">
-              <h3 className="text-base font-bold text-[#24292F] mb-3">
-                Mappings
-              </h3>
-
-              <div className="border border-[#D0D7DE] rounded bg-white overflow-x-auto shadow-sm">
-                <table className="w-full text-left text-xs border-collapse">
+              <div className="overflow-x-auto rounded-lg border border-ticketit-border">
+                <table className="w-full text-left text-xs">
                   <thead>
-                    <tr className="bg-[#F6F8FA] text-[#24292F] font-bold border-b border-[#D0D7DE]">
-                      <th className="py-2.5 px-4 w-1/4"></th>
-                      <th className="py-2.5 px-4 text-center font-bold">View Fields</th>
-                      <th className="py-2.5 px-4 text-center font-bold">Edit Fields</th>
-                      <th className="py-2.5 px-4 text-center font-bold">Adhoc View Fields</th>
-                      <th className="py-2.5 px-4 text-center font-bold">Adhoc Edit Fields</th>
-                      <th className="py-2.5 px-4 text-center font-bold">Summary View Fields</th>
+                    <tr className="bg-ticketit-table-header text-ticketit-navy font-bold border-b border-ticketit-border">
+                      <th className="py-3 px-4 w-1/4">Field Identifier</th>
+                      <th className="py-3 px-4 text-center">View Fields</th>
+                      <th className="py-3 px-4 text-center">Edit Fields</th>
+                      <th className="py-3 px-4 text-center">Adhoc View</th>
+                      <th className="py-3 px-4 text-center">Adhoc Edit</th>
+                      <th className="py-3 px-4 text-center">Summary View</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-[#E5E9F0]">
+                  <tbody className="divide-y divide-ticketit-border-light">
                     {(wizardState.mappingPermissions && wizardState.mappingPermissions.length > 0
                       ? wizardState.mappingPermissions
                       : DEFAULT_MAPPING_PERMISSIONS
                     ).map((perm, idx) => (
-                      <tr key={perm.fieldName} className={idx % 2 === 0 ? 'bg-white' : 'bg-[#FAFCFE]'}>
-                        <td className="py-2.5 px-4 font-medium text-[#24292F]">
+                      <tr key={perm.fieldName} className={idx % 2 === 0 ? 'bg-white hover:bg-ticketit-pink-subtle/30' : 'bg-ticketit-table-stripe hover:bg-ticketit-pink-subtle/30'}>
+                        <td className="py-2.5 px-4 font-bold text-ticketit-navy font-mono">
                           {perm.fieldName}
                         </td>
-                        <td className="py-2.5 px-4 text-center">
-                          <input
-                            type="checkbox"
-                            checked={perm.viewFields}
-                            onChange={() => {
-                              const updated = [
-                                ...(wizardState.mappingPermissions || DEFAULT_MAPPING_PERMISSIONS),
-                              ];
-                              updated[idx] = { ...updated[idx], viewFields: !updated[idx].viewFields };
-                              setWizardState({ ...wizardState, mappingPermissions: updated });
-                            }}
-                            className="w-3.5 h-3.5 rounded border-gray-300 text-[#0084B4] focus:ring-[#0084B4] cursor-pointer"
-                          />
-                        </td>
-                        <td className="py-2.5 px-4 text-center">
-                          <input
-                            type="checkbox"
-                            checked={perm.editFields}
-                            onChange={() => {
-                              const updated = [
-                                ...(wizardState.mappingPermissions || DEFAULT_MAPPING_PERMISSIONS),
-                              ];
-                              updated[idx] = { ...updated[idx], editFields: !updated[idx].editFields };
-                              setWizardState({ ...wizardState, mappingPermissions: updated });
-                            }}
-                            className="w-3.5 h-3.5 rounded border-gray-300 text-[#0084B4] focus:ring-[#0084B4] cursor-pointer"
-                          />
-                        </td>
-                        <td className="py-2.5 px-4 text-center">
-                          <input
-                            type="checkbox"
-                            checked={perm.adhocViewFields}
-                            onChange={() => {
-                              const updated = [
-                                ...(wizardState.mappingPermissions || DEFAULT_MAPPING_PERMISSIONS),
-                              ];
-                              updated[idx] = {
-                                ...updated[idx],
-                                adhocViewFields: !updated[idx].adhocViewFields,
-                              };
-                              setWizardState({ ...wizardState, mappingPermissions: updated });
-                            }}
-                            className="w-3.5 h-3.5 rounded border-gray-300 text-[#0084B4] focus:ring-[#0084B4] cursor-pointer"
-                          />
-                        </td>
-                        <td className="py-2.5 px-4 text-center">
-                          <input
-                            type="checkbox"
-                            checked={perm.adhocEditFields}
-                            onChange={() => {
-                              const updated = [
-                                ...(wizardState.mappingPermissions || DEFAULT_MAPPING_PERMISSIONS),
-                              ];
-                              updated[idx] = {
-                                ...updated[idx],
-                                adhocEditFields: !updated[idx].adhocEditFields,
-                              };
-                              setWizardState({ ...wizardState, mappingPermissions: updated });
-                            }}
-                            className="w-3.5 h-3.5 rounded border-gray-300 text-[#0084B4] focus:ring-[#0084B4] cursor-pointer"
-                          />
-                        </td>
-                        <td className="py-2.5 px-4 text-center">
-                          <input
-                            type="checkbox"
-                            checked={perm.summaryViewFields}
-                            onChange={() => {
-                              const updated = [
-                                ...(wizardState.mappingPermissions || DEFAULT_MAPPING_PERMISSIONS),
-                              ];
-                              updated[idx] = {
-                                ...updated[idx],
-                                summaryViewFields: !updated[idx].summaryViewFields,
-                              };
-                              setWizardState({ ...wizardState, mappingPermissions: updated });
-                            }}
-                            className="w-3.5 h-3.5 rounded border-gray-300 text-[#0084B4] focus:ring-[#0084B4] cursor-pointer"
-                          />
-                        </td>
+                        {['viewFields', 'editFields', 'adhocViewFields', 'adhocEditFields', 'summaryViewFields'].map((colKey) => (
+                          <td key={colKey} className="py-2.5 px-4 text-center">
+                            <input
+                              type="checkbox"
+                              checked={(perm as any)[colKey]}
+                              onChange={() => {
+                                const updated = [...(wizardState.mappingPermissions || DEFAULT_MAPPING_PERMISSIONS)];
+                                updated[idx] = { ...updated[idx], [colKey]: !(updated[idx] as any)[colKey] };
+                                setWizardState({ ...wizardState, mappingPermissions: updated });
+                              }}
+                              className="w-4 h-4 rounded border-ticketit-border text-ticketit-pink focus:ring-ticketit-pink/20 cursor-pointer"
+                            />
+                          </td>
+                        ))}
                       </tr>
                     ))}
                   </tbody>
@@ -1484,746 +1166,441 @@ export const CreateClientWizard: React.FC<CreateClientWizardProps> = ({
           </div>
         )}
 
-        {/* STEP 5: UPLOAD TICKET PATCHERS - EXACT MATCH TO REFERENCE SCREENSHOT */}
+        {/* STEP 5: UPLOAD PATCHERS - BRAND THEMED */}
         {currentStep === 5 && (
           <div className="space-y-6">
-            <p className="text-xs font-bold text-[#24292F]">
-              The following files are optional - if one or both are not uploaded, the default patchers will be used.
-            </p>
-
-            {/* Field 1: Loaded Batch Patcher */}
-            <div>
-              <label className="block text-sm font-bold text-[#24292F] mb-1.5">
-                Loaded Batch Patcher
-              </label>
-
-              <div className="bg-[#4BAA38] rounded-md p-1.5 sm:p-2 flex items-center gap-3 shadow-inner">
-                <label className="bg-[#ECEFF3] hover:bg-white text-[#24292F] text-xs font-bold px-3.5 py-1.5 rounded border border-[#BFC8D2] shadow-sm cursor-pointer whitespace-nowrap transition-colors select-none">
-                  Choose File
-                  <input
-                    type="file"
-                    accept=".cs,.txt"
-                    onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      if (file) {
-                        setWizardState((prev) => ({
-                          ...prev,
-                          loadedBatchPatcherFileName: file.name,
-                        }));
-                        showToast('success', 'Loaded Batch Patcher Uploaded', `${file.name} attached.`);
-                      }
-                    }}
-                    className="hidden"
-                  />
-                </label>
-                <span className="text-white text-xs sm:text-sm font-bold uppercase tracking-wider truncate">
-                  {wizardState.loadedBatchPatcherFileName || 'NO FILE CHOSEN'}
-                </span>
-              </div>
-
-              <p className="text-xs text-gray-700 mt-1.5 font-medium">
-                Please upload a C# .CS file
-              </p>
+            <div className="bg-ticketit-pink-subtle border border-ticketit-pink/20 rounded-xl p-4 text-xs font-bold text-ticketit-navy">
+              💡 The following C# patcher scripts are optional. Default transformation algorithms will be used if custom patchers are not provided.
             </div>
 
-            {/* Field 2: Rendered Batch Patcher */}
-            <div>
-              <label className="block text-sm font-bold text-[#24292F] mb-1.5">
-                Rendered Batch Patcher
-              </label>
-
-              <div className="bg-[#4BAA38] rounded-md p-1.5 sm:p-2 flex items-center gap-3 shadow-inner">
-                <label className="bg-[#ECEFF3] hover:bg-white text-[#24292F] text-xs font-bold px-3.5 py-1.5 rounded border border-[#BFC8D2] shadow-sm cursor-pointer whitespace-nowrap transition-colors select-none">
-                  Choose File
-                  <input
-                    type="file"
-                    accept=".cs,.txt"
-                    onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      if (file) {
-                        setWizardState((prev) => ({
-                          ...prev,
-                          renderedBatchPatcherFileName: file.name,
-                        }));
-                        showToast('success', 'Rendered Batch Patcher Uploaded', `${file.name} attached.`);
-                      }
-                    }}
-                    className="hidden"
-                  />
-                </label>
-                <span className="text-white text-xs sm:text-sm font-bold uppercase tracking-wider truncate">
-                  {wizardState.renderedBatchPatcherFileName || 'NO FILE CHOSEN'}
-                </span>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {/* Loaded Batch Patcher */}
+              <div className="bg-ticketit-bg-light/60 border border-ticketit-border rounded-xl p-5 space-y-3">
+                <div className="flex items-center justify-between">
+                  <label className="block text-xs font-black text-ticketit-navy uppercase tracking-wider">
+                    Loaded Batch Patcher (.CS)
+                  </label>
+                  <span className="text-[10px] font-bold text-ticketit-green bg-ticketit-green-light px-2 py-0.5 rounded-full uppercase tracking-wider">
+                    Pre-Process Script
+                  </span>
+                </div>
+                <div className="bg-gradient-to-r from-ticketit-green to-[#4AA46C] rounded-lg p-2 flex items-center justify-between gap-3 shadow-sm border border-ticketit-green">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <label className="bg-white hover:bg-ticketit-pink-subtle text-ticketit-navy text-xs font-black px-3.5 py-1.5 rounded-md border border-white/60 shadow-xs cursor-pointer whitespace-nowrap transition-all flex items-center gap-1.5 flex-shrink-0 active:scale-95">
+                      <Upload className="w-3.5 h-3.5 text-ticketit-green" />
+                      <span>Choose File</span>
+                      <input
+                        type="file"
+                        accept=".cs,.txt"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            setWizardState((prev) => ({ ...prev, loadedBatchPatcherFileName: file.name }));
+                            showToast('success', 'Loaded Batch Patcher Uploaded', `${file.name} attached.`);
+                          }
+                        }}
+                        className="hidden"
+                      />
+                    </label>
+                    <span className="text-white text-xs sm:text-sm font-extrabold uppercase tracking-wider truncate">
+                      {wizardState.loadedBatchPatcherFileName || 'NO FILE CHOSEN'}
+                    </span>
+                  </div>
+                </div>
+                <p className="text-xs text-ticketit-navy font-semibold">
+                  Please upload a C# .CS script file
+                </p>
               </div>
 
-              <p className="text-xs text-gray-700 mt-1.5 font-medium">
-                Please upload a C# .CS file
-              </p>
+              {/* Rendered Batch Patcher */}
+              <div className="bg-ticketit-bg-light/60 border border-ticketit-border rounded-xl p-5 space-y-3">
+                <div className="flex items-center justify-between">
+                  <label className="block text-xs font-black text-ticketit-navy uppercase tracking-wider">
+                    Rendered Batch Patcher (.CS)
+                  </label>
+                  <span className="text-[10px] font-bold text-ticketit-pink bg-ticketit-pink-light px-2 py-0.5 rounded-full uppercase tracking-wider">
+                    Post-Render Script
+                  </span>
+                </div>
+                <div className="bg-gradient-to-r from-ticketit-green to-[#4AA46C] rounded-lg p-2 flex items-center justify-between gap-3 shadow-sm border border-ticketit-green">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <label className="bg-white hover:bg-ticketit-pink-subtle text-ticketit-navy text-xs font-black px-3.5 py-1.5 rounded-md border border-white/60 shadow-xs cursor-pointer whitespace-nowrap transition-all flex items-center gap-1.5 flex-shrink-0 active:scale-95">
+                      <Upload className="w-3.5 h-3.5 text-ticketit-green" />
+                      <span>Choose File</span>
+                      <input
+                        type="file"
+                        accept=".cs,.txt"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            setWizardState((prev) => ({ ...prev, renderedBatchPatcherFileName: file.name }));
+                            showToast('success', 'Rendered Batch Patcher Uploaded', `${file.name} attached.`);
+                          }
+                        }}
+                        className="hidden"
+                      />
+                    </label>
+                    <span className="text-white text-xs sm:text-sm font-extrabold uppercase tracking-wider truncate">
+                      {wizardState.renderedBatchPatcherFileName || 'NO FILE CHOSEN'}
+                    </span>
+                  </div>
+                </div>
+                <p className="text-xs text-ticketit-navy font-semibold">
+                  Please upload a C# .CS script file
+                </p>
+              </div>
             </div>
           </div>
         )}
 
-        {/* STEP 6: UPLOAD CONTENT FILES - EXACT MATCH TO REFERENCE SCREENSHOT */}
+        {/* STEP 6: UPLOAD CONTENT - BRAND THEMED */}
         {currentStep === 6 && (
-          <div className="space-y-5">
-            {/* Fonts found in ticket */}
-            <div>
-              <h3 className="text-sm font-bold text-[#24292F] mb-1">
-                Fonts found in ticket:
-              </h3>
-              <p className="text-xs font-semibold text-[#24292F]">
-                {wizardState.fontsFoundInTicket || 'ITCAvantGardePro-Bold.ttf, ITCAvantGardeGothicPro-Bold.ttf, Rockwell-Bold.ttf'}
-              </p>
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {/* Detected Fonts */}
+              <div className="bg-ticketit-bg-light/60 border border-ticketit-border rounded-xl p-5 space-y-3">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-xs font-black uppercase tracking-wider text-ticketit-navy">
+                    Detected Ticket Fonts
+                  </h3>
+                  <span className="text-[10px] font-bold text-ticketit-green bg-ticketit-green-light px-2 py-0.5 rounded-full">
+                    3 Fonts Found
+                  </span>
+                </div>
+                <div className="flex flex-wrap gap-2 pt-1">
+                  {['ITCAvantGardePro-Bold.ttf', 'ITCAvantGardeGothicPro-Bold.ttf', 'Rockwell-Bold.ttf'].map((font) => (
+                    <span key={font} className="px-2.5 py-1 rounded-md bg-white border border-ticketit-border text-xs font-mono font-bold text-ticketit-navy shadow-xs">
+                      🔤 {font}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Detected Images */}
+              <div className="bg-ticketit-bg-light/60 border border-ticketit-border rounded-xl p-5 space-y-3">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-xs font-black uppercase tracking-wider text-ticketit-navy">
+                    Detected Ticket Images
+                  </h3>
+                  <span className="text-[10px] font-bold text-ticketit-pink bg-ticketit-pink-light px-2 py-0.5 rounded-full">
+                    3 Assets
+                  </span>
+                </div>
+                <div className="flex flex-wrap gap-2 pt-1">
+                  {['QRCode_Image.png', 'line_Image.png', 'afterpaylogo_Image.png'].map((img) => (
+                    <span key={img} className="px-2.5 py-1 rounded-md bg-white border border-ticketit-border text-xs font-mono font-bold text-ticketit-navy shadow-xs">
+                      🖼️ {img}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
 
-            {/* Images found in ticket */}
-            <div>
-              <h3 className="text-sm font-bold text-[#24292F] mb-1">
-                Images found in ticket:
-              </h3>
-              <p className="text-xs font-semibold text-[#24292F]">
-                {wizardState.imagesFoundInTicket || 'QRCode_Image.png, line_Image.png, afterpaylogo_Image.png'}
-              </p>
-            </div>
-
-            {/* Content Files Upload Bar */}
-            <div className="pt-1">
-              <label className="block text-xs font-semibold text-[#24292F] mb-1.5">
-                Content Files
+            {/* Content Zip File Upload */}
+            <div className="bg-white border border-ticketit-border rounded-xl p-6 shadow-card space-y-3">
+              <label className="block text-xs font-black text-ticketit-navy uppercase tracking-wider">
+                Content Files Bundle (.ZIP)
               </label>
-
-              <div className="bg-[#4BAA38] rounded-md p-1.5 sm:p-2 flex items-center gap-3 shadow-inner">
-                <label className="bg-[#ECEFF3] hover:bg-white text-[#24292F] text-xs font-bold px-3.5 py-1.5 rounded border border-[#BFC8D2] shadow-sm cursor-pointer whitespace-nowrap transition-colors select-none">
-                  Choose File
-                  <input
-                    type="file"
-                    accept=".zip,.rar,.tar.gz,.7z"
-                    onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      if (file) {
-                        setWizardState((prev) => ({
-                          ...prev,
-                          contentZipFileName: file.name,
-                        }));
-                        showToast('success', 'Content Files Attached', `${file.name} uploaded.`);
-                      }
-                    }}
-                    className="hidden"
-                  />
-                </label>
-                <span className="text-white text-xs sm:text-sm font-bold uppercase tracking-wider truncate">
-                  {wizardState.contentZipFileName || 'NO FILE CHOSEN'}
-                </span>
-              </div>
-
-              <p className="text-xs text-gray-700 mt-1.5 font-medium">
-                Please upload a ZIP file
-              </p>
-            </div>
-          </div>
-        )}
-
-        {/* STEP 7: REGIONS - EXACT MATCH TO REFERENCE SCREENSHOT */}
-        {currentStep === 7 && (
-          <div className="space-y-5">
-            {/* Regions List */}
-            {((wizardState.regions && wizardState.regions.length > 0)
-              ? wizardState.regions
-              : [{ id: 'reg-default', name: '', description: '' }]
-            ).map((region) => (
-              <div
-                key={region.id}
-                className="border border-[#D0D7DE] rounded bg-white p-5 sm:p-6 space-y-4 shadow-sm"
-              >
-                <h3 className="text-base font-bold text-[#24292F]">
-                  Region
-                </h3>
-
-                {/* Name */}
-                <div>
-                  <label className="block text-xs sm:text-sm font-semibold text-[#24292F] mb-1.5">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    value={region.name}
-                    onChange={(e) => handleUpdateRegion(region.id, 'name', e.target.value)}
-                    className="w-full px-3.5 py-2 text-sm bg-white border border-[#D0D7DE] rounded text-[#24292F] focus:border-[#0084B4] focus:outline-none"
-                  />
-                </div>
-
-                {/* Description */}
-                <div>
-                  <label className="block text-xs sm:text-sm font-semibold text-[#24292F] mb-1.5">
-                    Description
-                  </label>
-                  <input
-                    type="text"
-                    value={region.description}
-                    onChange={(e) => handleUpdateRegion(region.id, 'description', e.target.value)}
-                    className="w-full px-3.5 py-2 text-sm bg-white border border-[#D0D7DE] rounded text-[#24292F] focus:border-[#0084B4] focus:outline-none"
-                  />
-                </div>
-
-                {/* Delete Region Button */}
-                <div className="pt-1">
-                  <button
-                    type="button"
-                    onClick={() => handleDeleteRegion(region.id)}
-                    className="px-4 py-2 bg-[#4BAA38] hover:bg-[#3f912e] active:bg-[#347b25] text-white text-xs font-bold uppercase rounded shadow-sm transition-colors cursor-pointer select-none"
-                  >
-                    DELETE REGION
-                  </button>
-                </div>
-              </div>
-            ))}
-
-            {/* Add Region Button */}
-            <div className="pt-1">
-              <button
-                type="button"
-                onClick={handleAddRegion}
-                className="px-4 py-2 bg-[#4BAA38] hover:bg-[#3f912e] active:bg-[#347b25] text-white text-xs font-bold uppercase rounded shadow-sm transition-colors cursor-pointer select-none"
-              >
-                ADD REGION
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* STEP 8: INVOICING - EXACT MATCH TO REFERENCE SCREENSHOT */}
-        {currentStep === 8 && (
-          <div className="border border-[#D0D7DE] rounded bg-white overflow-hidden shadow-sm">
-            {/* Row 1: Client Name in Report (white) */}
-            <div className="grid grid-cols-1 md:grid-cols-12 items-center bg-white border-b border-[#D0D7DE] px-4 py-2.5 sm:px-6 sm:py-3">
-              <div className="md:col-span-5 text-xs sm:text-sm font-semibold text-[#24292F]">
-                Client Name in Report
-              </div>
-              <div className="md:col-span-7 mt-1 md:mt-0">
-                <input
-                  type="text"
-                  value={wizardState.clientNameInReport}
-                  onChange={(e) => setWizardState({ ...wizardState, clientNameInReport: e.target.value })}
-                  className="w-full px-3.5 py-2 text-sm bg-white border border-[#D0D7DE] rounded text-[#24292F] focus:border-[#0084B4] focus:outline-none"
-                />
-              </div>
-            </div>
-
-            {/* Row 2: Number Of Stores (light gray/blue #EEF3F8 with disabled box) */}
-            <div className="grid grid-cols-1 md:grid-cols-12 items-center bg-[#EEF3F8] border-b border-[#D0D7DE] px-4 py-2.5 sm:px-6 sm:py-3">
-              <div className="md:col-span-5 text-xs sm:text-sm font-semibold text-[#24292F]">
-                Number Of Stores
-              </div>
-              <div className="md:col-span-7 mt-1 md:mt-0">
-                <div className="w-full h-[38px] px-3.5 py-2 text-sm bg-[#D8DEE4] border border-[#CBD5E1] rounded text-[#24292F] font-semibold flex items-center select-none">
-                  {wizardState.numberOfStores > 0
-                    ? wizardState.numberOfStores
-                    : wizardState.regions && wizardState.regions.length > 0 && wizardState.regions[0].branches && wizardState.regions[0].branches.length > 0
-                    ? wizardState.regions.reduce((acc, r) => acc + (r.branches?.length || 0), 0)
-                    : ''}
-                </div>
-              </div>
-            </div>
-
-            {/* Row 3: Value per Store (white) */}
-            <div className="grid grid-cols-1 md:grid-cols-12 items-center bg-white border-b border-[#D0D7DE] px-4 py-2.5 sm:px-6 sm:py-3">
-              <div className="md:col-span-5 text-xs sm:text-sm font-semibold text-[#24292F]">
-                Value per Store
-              </div>
-              <div className="md:col-span-7 mt-1 md:mt-0">
-                <input
-                  type="text"
-                  value={wizardState.valuePerStore}
-                  onChange={(e) => setWizardState({ ...wizardState, valuePerStore: e.target.value })}
-                  className="w-full px-3.5 py-2 text-sm bg-white border border-[#D0D7DE] rounded text-[#24292F] focus:border-[#0084B4] focus:outline-none"
-                />
-              </div>
-            </div>
-
-            {/* Row 4: Number Of Integrations (light gray/blue #EEF3F8) */}
-            <div className="grid grid-cols-1 md:grid-cols-12 items-center bg-[#EEF3F8] border-b border-[#D0D7DE] px-4 py-2.5 sm:px-6 sm:py-3">
-              <div className="md:col-span-5 text-xs sm:text-sm font-semibold text-[#24292F]">
-                Number Of Integrations
-              </div>
-              <div className="md:col-span-7 mt-1 md:mt-0">
-                <input
-                  type="text"
-                  value={wizardState.numberOfIntegrations}
-                  onChange={(e) => setWizardState({ ...wizardState, numberOfIntegrations: e.target.value })}
-                  className="w-full px-3.5 py-2 text-sm bg-white border border-[#D0D7DE] rounded text-[#24292F] focus:border-[#0084B4] focus:outline-none"
-                />
-              </div>
-            </div>
-
-            {/* Row 5: Discount Percetage (white) */}
-            <div className="grid grid-cols-1 md:grid-cols-12 items-center bg-white border-b border-[#D0D7DE] px-4 py-2.5 sm:px-6 sm:py-3">
-              <div className="md:col-span-5 text-xs sm:text-sm font-semibold text-[#24292F]">
-                Discount Percetage
-              </div>
-              <div className="md:col-span-7 mt-1 md:mt-0">
-                <input
-                  type="text"
-                  value={wizardState.discountPercentage}
-                  onChange={(e) => setWizardState({ ...wizardState, discountPercentage: e.target.value })}
-                  className="w-full px-3.5 py-2 text-sm bg-white border border-[#D0D7DE] rounded text-[#24292F] focus:border-[#0084B4] focus:outline-none"
-                />
-              </div>
-            </div>
-
-            {/* Row 6: GST (light gray/blue #EEF3F8) */}
-            <div className="grid grid-cols-1 md:grid-cols-12 items-center bg-[#EEF3F8] border-b border-[#D0D7DE] px-4 py-2.5 sm:px-6 sm:py-3">
-              <div className="md:col-span-5 text-xs sm:text-sm font-semibold text-[#24292F]">
-                GST
-              </div>
-              <div className="md:col-span-7 mt-1 md:mt-0">
-                <input
-                  type="text"
-                  value={wizardState.gst}
-                  onChange={(e) => setWizardState({ ...wizardState, gst: e.target.value })}
-                  className="w-full px-3.5 py-2 text-sm bg-white border border-[#D0D7DE] rounded text-[#24292F] focus:border-[#0084B4] focus:outline-none"
-                />
-              </div>
-            </div>
-
-            {/* Row 7: Total Integrations (white) */}
-            <div className="grid grid-cols-1 md:grid-cols-12 items-center bg-white border-b border-[#D0D7DE] px-4 py-2.5 sm:px-6 sm:py-3">
-              <div className="md:col-span-5 text-xs sm:text-sm font-semibold text-[#24292F]">
-                Total Integrations
-              </div>
-              <div className="md:col-span-7 mt-1 md:mt-0">
-                <input
-                  type="text"
-                  value={wizardState.totalIntegrations}
-                  onChange={(e) => setWizardState({ ...wizardState, totalIntegrations: e.target.value })}
-                  className="w-full px-3.5 py-2 text-sm bg-white border border-[#D0D7DE] rounded text-[#24292F] focus:border-[#0084B4] focus:outline-none"
-                />
-              </div>
-            </div>
-
-            {/* Row 8: Reseller Invoice (light gray/blue #EEF3F8) */}
-            <div className="grid grid-cols-1 md:grid-cols-12 items-center bg-[#EEF3F8] border-b border-[#D0D7DE] px-4 py-2.5 sm:px-6 sm:py-3">
-              <div className="md:col-span-5 text-xs sm:text-sm font-semibold text-[#24292F]">
-                Reseller Invoice
-              </div>
-              <div className="md:col-span-7 mt-1 md:mt-0">
-                <input
-                  type="text"
-                  value={wizardState.resellerInvoice}
-                  onChange={(e) => setWizardState({ ...wizardState, resellerInvoice: e.target.value })}
-                  className="w-full px-3.5 py-2 text-sm bg-white border border-[#D0D7DE] rounded text-[#24292F] focus:border-[#0084B4] focus:outline-none"
-                />
-              </div>
-            </div>
-
-            {/* Row 9: Payment Type (white) */}
-            <div className="grid grid-cols-1 md:grid-cols-12 items-center bg-white border-b border-[#D0D7DE] px-4 py-2.5 sm:px-6 sm:py-3">
-              <div className="md:col-span-5 text-xs sm:text-sm font-semibold text-[#24292F]">
-                Payment Type
-              </div>
-              <div className="md:col-span-7 mt-1 md:mt-0">
-                <select
-                  value={wizardState.paymentType}
-                  onChange={(e) => setWizardState({ ...wizardState, paymentType: e.target.value })}
-                  className="w-full px-3.5 py-2 text-sm bg-white border border-[#D0D7DE] rounded text-[#24292F] focus:border-[#0084B4] focus:outline-none cursor-pointer"
-                >
-                  <option value="">Select</option>
-                  <option value="Direct Debit">Direct Debit</option>
-                  <option value="Credit Card">Credit Card</option>
-                  <option value="Invoice / Net 30">Invoice / Net 30</option>
-                  <option value="Bank Transfer">Bank Transfer</option>
-                  <option value="Prepaid Account">Prepaid Account</option>
-                </select>
-              </div>
-            </div>
-
-            {/* Row 10: Total per Month (light gray/blue #EEF3F8 with disabled box) */}
-            <div className="grid grid-cols-1 md:grid-cols-12 items-center bg-[#EEF3F8] border-b border-[#D0D7DE] px-4 py-2.5 sm:px-6 sm:py-3">
-              <div className="md:col-span-5 text-xs sm:text-sm font-semibold text-[#24292F]">
-                Total per Month
-              </div>
-              <div className="md:col-span-7 mt-1 md:mt-0">
-                <div className="w-full h-[38px] px-3.5 py-2 text-sm bg-[#D8DEE4] border border-[#CBD5E1] rounded text-[#24292F] font-semibold flex items-center select-none">
-                  {wizardState.totalPerMonth ? wizardState.totalPerMonth : ''}
-                </div>
-              </div>
-            </div>
-
-            {/* Row 11: Total Invoice (white with disabled box) */}
-            <div className="grid grid-cols-1 md:grid-cols-12 items-center bg-white px-4 py-2.5 sm:px-6 sm:py-3">
-              <div className="md:col-span-5 text-xs sm:text-sm font-semibold text-[#24292F]">
-                Total Invoice
-              </div>
-              <div className="md:col-span-7 mt-1 md:mt-0">
-                <div className="w-full h-[38px] px-3.5 py-2 text-sm bg-[#D8DEE4] border border-[#CBD5E1] rounded text-[#24292F] font-semibold flex items-center select-none">
-                  {wizardState.totalInvoice ? wizardState.totalInvoice : ''}
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* STEP 9: VERIFY - EXACT MATCH TO REFERENCE SCREENSHOT */}
-        {currentStep === 9 && (
-          <div className="space-y-8 max-w-5xl">
-            {/* Section 1: Name and Logo */}
-            <div className="border-b border-[#D0D7DE] pb-6 space-y-2">
-              <h3 className="text-base font-bold text-[#24292F]">
-                Name and Logo
-              </h3>
-              <p className="text-xs text-gray-700 font-medium">
-                You can edit the display name and logo for this client at a later stage
-              </p>
-              <div className="pt-2 text-sm font-semibold text-[#24292F]">
-                {wizardState.clientName || 'testclient'}
-              </div>
-              <div className="pt-1">
-                {wizardState.logoUrl ? (
-                  <img src={wizardState.logoUrl} alt="Client Logo" className="h-10 object-contain" />
-                ) : (
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-gray-200 rounded shadow-sm">
-                    <span className="text-[#023E6B] font-extrabold text-lg tracking-tight">Ticket</span>
-                    <span className="bg-[#E91E63] text-white text-xs font-black px-1.5 py-0.5 rounded tracking-wider">IT</span>
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {/* Section 2: Tickets and Data */}
-            <div className="border-b border-[#D0D7DE] pb-6 space-y-4">
-              <h3 className="text-base font-bold text-[#24292F]">
-                Tickets and Data
-              </h3>
-
-              {/* Matching Ticket fields */}
-              <div className="space-y-1">
-                <div className="text-sm font-bold text-[#24292F]">
-                  Matching Ticket fields
-                </div>
-                <div className="text-xs text-gray-700 font-medium">
-                  The following Ticket fields were found in the data spreadsheet:
-                </div>
-                <ul className="list-disc list-inside text-xs text-[#24292F] font-semibold pl-1 space-y-0.5 pt-1">
-                  <li>Product Name</li>
-                  <li>Brand</li>
-                </ul>
-              </div>
-
-              {/* Missing Ticket fields */}
-              <div className="space-y-1">
-                <div className="text-sm font-bold text-[#24292F]">
-                  Missing Ticket fields
-                </div>
-                <div className="text-xs text-gray-700 font-medium">
-                  The following Ticket fields were missing from the data spreadsheet:
-                </div>
-                <ul className="list-disc list-inside text-xs text-[#24292F] font-medium pl-1 space-y-0.5 pt-1 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-0.5">
-                  <li>OFF_IN</li>
-                  <li>Savings_M</li>
-                  <li>SavingsPercent_M</li>
-                  <li>Savings_S</li>
-                  <li>SavingsPercent_S</li>
-                  <li>OFF_SideEdge_S</li>
-                  <li>Was Price_Dollar Sign</li>
-                  <li>Was Price_Dollars</li>
-                  <li>Was Price_Cents</li>
-                  <li>Was_Label</li>
-                  <li>Sale Price_Dollar Sign</li>
-                  <li>Sale Price_Dollars</li>
-                  <li>Sale Price_Cents</li>
-                  <li>New_Label</li>
-                  <li>QRCode_Image</li>
-                  <li>line_Image</li>
-                  <li>PanelMessage1</li>
-                  <li>afterpaylogo_Image</li>
-                </ul>
-              </div>
-
-              <p className="text-xs text-gray-700 font-medium pt-1">
-                If the fields matched as expected, you do not need to do anything. Otherwise, you may re-upload either or both the data and ticket files:
-              </p>
-
-              {/* Data Re-upload Bar */}
-              <div className="space-y-1">
-                <div className="text-xs font-semibold text-[#24292F]">Data</div>
-                <div className="bg-[#4BAA38] rounded-md p-1.5 sm:p-2 flex items-center gap-3 shadow-inner">
-                  <label className="bg-[#ECEFF3] hover:bg-white text-[#24292F] text-xs font-bold px-3.5 py-1.5 rounded border border-[#BFC8D2] shadow-sm cursor-pointer whitespace-nowrap transition-colors select-none">
-                    Choose File
-                    <input type="file" accept=".xlsx,.xls,.csv" onChange={handleDataFileUpload} className="hidden" />
-                  </label>
-                  <span className="text-white text-xs sm:text-sm font-bold uppercase tracking-wider truncate">
-                    {wizardState.dataFileName || 'NO FILE CHOSEN'}
-                  </span>
-                </div>
-                <p className="text-xs text-gray-700 font-medium">Please upload an XLSX file</p>
-              </div>
-
-              {/* Ticket Re-upload Bar */}
-              <div className="space-y-1">
-                <div className="text-xs font-semibold text-[#24292F]">Ticket</div>
-                <div className="bg-[#4BAA38] rounded-md p-1.5 sm:p-2 flex items-center gap-3 shadow-inner">
-                  <label className="bg-[#ECEFF3] hover:bg-white text-[#24292F] text-xs font-bold px-3.5 py-1.5 rounded border border-[#BFC8D2] shadow-sm cursor-pointer whitespace-nowrap transition-colors select-none">
-                    Choose File
-                    <input
-                      type="file"
-                      accept=".xml"
-                      onChange={(e) => {
-                        const f = e.target.files?.[0];
-                        if (f) setWizardState((prev) => ({ ...prev, ticketXmlFileName: f.name }));
-                      }}
-                      className="hidden"
-                    />
-                  </label>
-                  <span className="text-white text-xs sm:text-sm font-bold uppercase tracking-wider truncate">
-                    {wizardState.ticketXmlFileName || 'NO FILE CHOSEN'}
-                  </span>
-                </div>
-                <p className="text-xs text-gray-700 font-medium">Please upload an XML file</p>
-              </div>
-            </div>
-
-            {/* Section 3: Ticket Settings */}
-            <div className="border-b border-[#D0D7DE] pb-6 space-y-3">
-              <h3 className="text-base font-bold text-[#24292F]">
-                Ticket Settings
-              </h3>
-              <p className="text-xs text-gray-700 font-medium">
-                You can edit the settings for this ticket at a later stage
-              </p>
-
-              <div className="space-y-2.5 text-xs text-[#24292F] font-medium pt-1">
-                <div>
-                  <div className="font-semibold text-gray-700">Rows</div>
-                  <div>{wizardState.rows || 1}</div>
-                </div>
-                <div>
-                  <div className="font-semibold text-gray-700">Columns</div>
-                  <div>{wizardState.columns || 1}</div>
-                </div>
-                <div>
-                  <div className="font-semibold text-gray-700">Orientation</div>
-                  <div>{wizardState.orientation || 'Portrait'}</div>
-                </div>
-                <div>
-                  <div className="font-semibold text-gray-700">Paper Size (custom will take the size from the xml file)</div>
-                  <div>{wizardState.paperSize || 'A4'}</div>
-                </div>
-                <div>
-                  <div className="font-semibold text-gray-700">Allow Products Without Price?</div>
-                  <div>
-                    <input
-                      type="checkbox"
-                      checked={wizardState.allowProductsWithoutPrice}
-                      disabled
-                      className="w-3.5 h-3.5 rounded border-gray-300 text-[#0084B4]"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <div className="font-semibold text-gray-700">Print Background?</div>
-                  <div>
-                    <input
-                      type="checkbox"
-                      checked={wizardState.printBackground}
-                      disabled
-                      className="w-3.5 h-3.5 rounded border-gray-300 text-[#0084B4]"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <div className="font-semibold text-gray-700">Output print files as CMYK?</div>
-                  <div>
-                    <input
-                      type="checkbox"
-                      checked={wizardState.outputPrintCmyk}
-                      disabled
-                      className="w-3.5 h-3.5 rounded border-gray-300 text-[#0084B4]"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <div className="font-semibold text-gray-700">Use bleed and add crop marks? (can only be used with custom page sizes)</div>
-                  <div>
-                    <input
-                      type="checkbox"
-                      checked={wizardState.useBleedAndCropMarks}
-                      disabled
-                      className="w-3.5 h-3.5 rounded border-gray-300 text-[#0084B4]"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <div className="font-semibold text-gray-700">Is this a multi page PDF? (can only be used with custom page sizes)</div>
-                  <div>
-                    <input
-                      type="checkbox"
-                      checked={wizardState.isMultiPagePdf}
-                      disabled
-                      className="w-3.5 h-3.5 rounded border-gray-300 text-[#0084B4]"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <div className="font-semibold text-gray-700">PageCount</div>
-                  <div>0</div>
-                </div>
-                <div>
-                  <div className="font-semibold text-gray-700">Only allow franchisees to edit lookup fields?</div>
-                  <div>
-                    <input
-                      type="checkbox"
-                      checked={wizardState.onlyAllowFranchiseesEditLookup}
-                      disabled
-                      className="w-3.5 h-3.5 rounded border-gray-300 text-[#0084B4]"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <div className="font-semibold text-gray-700">Ordering of the ticket, orders in ascending order</div>
-                  <div>{wizardState.ticketOrdering || 0}</div>
-                </div>
-                <div>
-                  <div className="font-semibold text-gray-700">Offset the printing origin X axis, this is per ticket</div>
-                  <div>{wizardState.offsetOriginX || '0.00'}</div>
-                </div>
-                <div>
-                  <div className="font-semibold text-gray-700">Offset the printing origin Y axis, this is per ticket</div>
-                  <div>{wizardState.offsetOriginY || '0.00'}</div>
-                </div>
-                <div>
-                  <div className="font-semibold text-gray-700">IsPngOutput</div>
-                  <div>
-                    <input
-                      type="checkbox"
-                      checked={wizardState.isPngOutput}
-                      disabled
-                      className="w-3.5 h-3.5 rounded border-gray-300 text-[#0084B4]"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <div className="font-semibold text-gray-700">PngWidth</div>
-                  <div>{wizardState.pngWidth || ''}</div>
-                </div>
-                <div>
-                  <div className="font-semibold text-gray-700">PngHeight</div>
-                  <div>{wizardState.pngHeight || ''}</div>
-                </div>
-                <div>
-                  <div className="font-semibold text-gray-700">IsPngSolumOutput</div>
-                  <div>
-                    <input
-                      type="checkbox"
-                      checked={false}
-                      disabled
-                      className="w-3.5 h-3.5 rounded border-gray-300 text-[#0084B4]"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Section 4: Content Files */}
-            <div className="border-b border-[#D0D7DE] pb-6 space-y-4">
-              <h3 className="text-base font-bold text-[#24292F]">
-                Content Files
-              </h3>
-
-              {/* Matching Ticket Fonts */}
-              <div className="space-y-1">
-                <div className="text-sm font-bold text-[#24292F]">
-                  Matching Ticket Fonts
-                </div>
-                <div className="text-xs text-gray-700 font-medium">
-                  The following Ticket fonts were found in the content ZIP:
-                </div>
-                <ul className="list-disc list-inside text-xs text-[#24292F] font-semibold pl-1 space-y-0.5 pt-1">
-                  <li>ITCAvantGardePro-Bold.ttf</li>
-                  <li>ITCAvantGardeGothicPro-Bold.ttf</li>
-                  <li>Rockwell-Bold.ttf</li>
-                </ul>
-              </div>
-
-              {/* Missing Ticket fonts */}
-              <div className="space-y-1">
-                <div className="text-sm font-bold text-[#24292F]">
-                  Missing Ticket fonts
-                </div>
-                <div className="text-xs text-[#24292F] font-medium">
-                  No fonts are missing.
-                </div>
-              </div>
-
-              {/* Matching Ticket Images */}
-              <div className="space-y-1">
-                <div className="text-sm font-bold text-[#24292F]">
-                  Matching Ticket Images
-                </div>
-                <div className="text-xs text-[#24292F] font-medium">
-                  No matches were found!
-                </div>
-              </div>
-
-              {/* Missing Ticket images */}
-              <div className="space-y-1">
-                <div className="text-sm font-bold text-[#24292F]">
-                  Missing Ticket images
-                </div>
-                <div className="text-xs text-gray-700 font-medium">
-                  The following Ticket images were missing from the content ZIP:
-                </div>
-                <ul className="list-disc list-inside text-xs text-[#24292F] font-medium pl-1 space-y-0.5 pt-1">
-                  <li>QRCode_Image.png</li>
-                  <li>line_Image.png</li>
-                  <li>afterpaylogo_Image.png</li>
-                </ul>
-              </div>
-
-              <p className="text-xs text-gray-700 font-medium pt-1">
-                If the fonts and images matched as expected, you do not need to do anything. Otherwise, please re-upload the content ZIP:
-              </p>
-
-              {/* Content Files Re-upload Bar */}
-              <div className="space-y-1">
-                <div className="text-xs font-semibold text-[#24292F]">Content Files</div>
-                <div className="bg-[#4BAA38] rounded-md p-1.5 sm:p-2 flex items-center gap-3 shadow-inner">
-                  <label className="bg-[#ECEFF3] hover:bg-white text-[#24292F] text-xs font-bold px-3.5 py-1.5 rounded border border-[#BFC8D2] shadow-sm cursor-pointer whitespace-nowrap transition-colors select-none">
-                    Choose File
+              <div className="bg-gradient-to-r from-ticketit-green to-[#4AA46C] rounded-lg p-2.5 flex items-center justify-between gap-3 shadow-sm border border-ticketit-green">
+                <div className="flex items-center gap-3 min-w-0">
+                  <label className="bg-white hover:bg-ticketit-pink-subtle text-ticketit-navy text-xs font-black px-4 py-2 rounded-md border border-white/60 shadow-xs cursor-pointer whitespace-nowrap transition-all flex items-center gap-2 flex-shrink-0 active:scale-95">
+                    <Upload className="w-4 h-4 text-ticketit-green" />
+                    <span>Choose File</span>
                     <input
                       type="file"
                       accept=".zip,.rar,.tar.gz,.7z"
                       onChange={(e) => {
-                        const f = e.target.files?.[0];
-                        if (f) setWizardState((prev) => ({ ...prev, contentZipFileName: f.name }));
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          setWizardState((prev) => ({ ...prev, contentZipFileName: file.name }));
+                          showToast('success', 'Content ZIP Uploaded', `${file.name} attached.`);
+                        }
                       }}
                       className="hidden"
                     />
                   </label>
-                  <span className="text-white text-xs sm:text-sm font-bold uppercase tracking-wider truncate">
+                  <span className="text-white text-xs sm:text-sm font-extrabold uppercase tracking-wider truncate">
                     {wizardState.contentZipFileName || 'NO FILE CHOSEN'}
                   </span>
                 </div>
-                <p className="text-xs text-gray-700 font-medium">Please upload a ZIP file</p>
+              </div>
+              <p className="text-xs text-ticketit-navy font-semibold">
+                Please upload a ZIP file containing custom fonts and graphics
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* STEP 7: REGIONS & TERRITORIES - BRAND THEMED */}
+        {currentStep === 7 && (
+          <div className="space-y-6">
+            {((wizardState.regions && wizardState.regions.length > 0)
+              ? wizardState.regions
+              : [{ id: 'reg-default', name: 'Auckland & North Island', description: 'Primary Metro Stores' }]
+            ).map((region, idx) => (
+              <div
+                key={region.id}
+                className="border border-ticketit-border rounded-xl bg-white p-6 space-y-4 shadow-card"
+              >
+                <div className="flex items-center justify-between pb-3 border-b border-ticketit-border">
+                  <div className="flex items-center gap-2">
+                    <div className="w-6 h-6 rounded-md bg-ticketit-pink text-white flex items-center justify-center text-xs font-black">
+                      {idx + 1}
+                    </div>
+                    <h3 className="text-sm font-black text-ticketit-navy uppercase tracking-wider">
+                      Region / Territory Setup
+                    </h3>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => handleDeleteRegion(region.id)}
+                    className="text-xs font-bold text-red-500 hover:text-red-700 flex items-center gap-1"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                    <span>Remove</span>
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-ticketit-navy uppercase tracking-wider mb-1.5">
+                      Region Name <span className="text-ticketit-pink">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Auckland Metro"
+                      value={region.name}
+                      onChange={(e) => handleUpdateRegion(region.id, 'name', e.target.value)}
+                      className="w-full px-3.5 py-2.5 text-sm bg-white border border-ticketit-border rounded-lg text-ticketit-navy font-bold focus:border-ticketit-pink focus:outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-ticketit-navy uppercase tracking-wider mb-1.5">
+                      Description
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Supermarket network across North Island"
+                      value={region.description}
+                      onChange={(e) => handleUpdateRegion(region.id, 'description', e.target.value)}
+                      className="w-full px-3.5 py-2.5 text-sm bg-white border border-ticketit-border rounded-lg text-ticketit-navy font-medium focus:border-ticketit-pink focus:outline-none"
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
+
+            <button
+              type="button"
+              onClick={handleAddRegion}
+              className="px-5 py-2.5 bg-white border-2 border-dashed border-ticketit-pink/40 hover:border-ticketit-pink text-ticketit-pink hover:bg-ticketit-pink-subtle text-xs font-black uppercase tracking-wider rounded-xl transition-all flex items-center gap-2 w-full justify-center shadow-xs"
+            >
+              <Plus className="w-4 h-4" />
+              <span>Add Another Regional Territory</span>
+            </button>
+          </div>
+        )}
+
+        {/* STEP 8: INVOICING & COMMERCE - BRAND THEMED */}
+        {currentStep === 8 && (
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            {/* Left Column: Inputs */}
+            <div className="lg:col-span-7 bg-white border border-ticketit-border rounded-xl p-6 shadow-card space-y-4">
+              <h3 className="text-sm font-black text-ticketit-navy uppercase tracking-wider pb-3 border-b border-ticketit-border">
+                Billing & Commercial Parameters
+              </h3>
+
+              <div className="space-y-3.5">
+                <div>
+                  <label className="block text-xs font-bold text-ticketit-navy uppercase tracking-wider mb-1">
+                    Client Name in Invoice Report
+                  </label>
+                  <input
+                    type="text"
+                    value={wizardState.clientNameInReport || wizardState.clientName}
+                    onChange={(e) => setWizardState({ ...wizardState, clientNameInReport: e.target.value })}
+                    className="w-full px-3.5 py-2 text-xs bg-white border border-ticketit-border rounded-lg font-bold text-ticketit-navy focus:border-ticketit-pink focus:outline-none"
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-xs font-bold text-ticketit-navy uppercase tracking-wider mb-1">
+                      Number of Stores
+                    </label>
+                    <input
+                      type="number"
+                      value={wizardState.numberOfStores || 10}
+                      onChange={(e) => setWizardState({ ...wizardState, numberOfStores: parseInt(e.target.value, 10) || 1 })}
+                      className="w-full px-3.5 py-2 text-xs bg-white border border-ticketit-border rounded-lg font-bold text-ticketit-navy"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-ticketit-navy uppercase tracking-wider mb-1">
+                      Value per Store ($/mo)
+                    </label>
+                    <input
+                      type="text"
+                      value={wizardState.valuePerStore || '150.00'}
+                      onChange={(e) => setWizardState({ ...wizardState, valuePerStore: e.target.value })}
+                      className="w-full px-3.5 py-2 text-xs bg-white border border-ticketit-border rounded-lg font-mono font-bold text-ticketit-navy"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-xs font-bold text-ticketit-navy uppercase tracking-wider mb-1">
+                      Discount (%)
+                    </label>
+                    <input
+                      type="text"
+                      value={wizardState.discountPercentage || '0'}
+                      onChange={(e) => setWizardState({ ...wizardState, discountPercentage: e.target.value })}
+                      className="w-full px-3.5 py-2 text-xs bg-white border border-ticketit-border rounded-lg font-mono font-bold text-ticketit-navy"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-ticketit-navy uppercase tracking-wider mb-1">
+                      GST Tax (%)
+                    </label>
+                    <input
+                      type="text"
+                      value={wizardState.gst || '15'}
+                      onChange={(e) => setWizardState({ ...wizardState, gst: e.target.value })}
+                      className="w-full px-3.5 py-2 text-xs bg-white border border-ticketit-border rounded-lg font-mono font-bold text-ticketit-navy"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-ticketit-navy uppercase tracking-wider mb-1">
+                    Payment Method
+                  </label>
+                  <select
+                    value={wizardState.paymentType || 'Direct Debit'}
+                    onChange={(e) => setWizardState({ ...wizardState, paymentType: e.target.value })}
+                    className="w-full px-3.5 py-2 text-xs bg-white border border-ticketit-border rounded-lg font-bold text-ticketit-navy focus:border-ticketit-pink focus:outline-none"
+                  >
+                    <option value="Direct Debit">Direct Debit</option>
+                    <option value="Credit Card">Credit Card</option>
+                    <option value="Invoice / Net 30">Invoice / Net 30</option>
+                    <option value="Bank Transfer">Bank Transfer</option>
+                  </select>
+                </div>
               </div>
             </div>
 
-            {/* Section 5: Regions */}
-            <div className="space-y-3">
-              <h3 className="text-base font-bold text-[#24292F]">
-                Regions
-              </h3>
-              <p className="text-xs text-gray-700 font-medium">
-                You can edit the regions for this client at a later stage
-              </p>
+            {/* Right Column: Live Calculation Summary Card */}
+            <div className="lg:col-span-5 bg-gradient-to-br from-ticketit-navy to-ticketit-navy-dark text-white rounded-xl p-6 shadow-card space-y-5">
+              <div className="flex items-center justify-between pb-3 border-b border-white/10">
+                <h3 className="text-xs font-black uppercase tracking-wider text-ticketit-pink">
+                  Commercial Monthly Summary
+                </h3>
+                <span className="text-[10px] font-bold text-white bg-white/10 px-2.5 py-0.5 rounded-full">
+                  NZD Currency
+                </span>
+              </div>
 
-              <div className="space-y-1 text-xs text-[#24292F] font-medium pt-2">
-                <div>Client Name In Report: {wizardState.clientNameInReport || wizardState.clientName || 'test'}</div>
-                <div>Value/Store: {wizardState.valuePerStore || '0'}</div>
-                <div>GST: {wizardState.gst || '0'}</div>
-                <div>Discount %: {wizardState.discountPercentage || '0'}</div>
-                <div>No. Of Integrations: {wizardState.numberOfIntegrations || '0'}</div>
-                <div>Total Integrations: {wizardState.totalIntegrations || '0'}</div>
-                <div>Invoice/Month: {wizardState.totalPerMonth || '0'}</div>
-                <div>Total Invoice: {wizardState.totalInvoice || '0'}</div>
+              <div className="space-y-3 text-xs">
+                <div className="flex items-center justify-between">
+                  <span className="text-gray-300">Base Store Rate ({wizardState.numberOfStores || 10} Stores):</span>
+                  <span className="font-mono font-bold text-white">
+                    ${((wizardState.numberOfStores || 10) * parseFloat(wizardState.valuePerStore || '150')).toFixed(2)}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-gray-300">Integrations Fee:</span>
+                  <span className="font-mono font-bold text-white">${wizardState.totalIntegrations || '250.00'}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-gray-300">GST ({wizardState.gst || 15}%):</span>
+                  <span className="font-mono font-bold text-white">
+                    ${(((wizardState.numberOfStores || 10) * parseFloat(wizardState.valuePerStore || '150')) * (parseFloat(wizardState.gst || '15') / 100)).toFixed(2)}
+                  </span>
+                </div>
+              </div>
+
+              <div className="pt-4 border-t border-white/10 flex items-baseline justify-between">
+                <div>
+                  <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Total Monthly Retainer</div>
+                  <div className="text-2xl font-black text-ticketit-pink tracking-tight">
+                    ${(((wizardState.numberOfStores || 10) * parseFloat(wizardState.valuePerStore || '150') * (1 + parseFloat(wizardState.gst || '15') / 100)) + parseFloat(wizardState.totalIntegrations || '250')).toFixed(2)}
+                  </div>
+                </div>
+                <span className="text-[10px] font-bold text-ticketit-green bg-ticketit-green/20 px-2 py-0.5 rounded uppercase">
+                  ✓ Ready for Billing
+                </span>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* STEP 9: VERIFY & PROVISION - BRAND THEMED */}
+        {currentStep === 9 && (
+          <div className="space-y-6 max-w-5xl">
+            {/* Overview Stat Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="bg-ticketit-bg-light/60 border border-ticketit-border rounded-xl p-4">
+                <div className="text-[10px] font-bold text-ticketit-text-muted uppercase tracking-wider">Trading Profile</div>
+                <div className="text-base font-black text-ticketit-navy mt-1 truncate">
+                  {wizardState.clientName || 'SuperValu Stores NZ'}
+                </div>
+                <div className="text-xs font-bold text-ticketit-pink mt-0.5 font-mono">
+                  {wizardState.clientCode || 'SUP-NZ'}
+                </div>
+              </div>
+
+              <div className="bg-ticketit-bg-light/60 border border-ticketit-border rounded-xl p-4">
+                <div className="text-[10px] font-bold text-ticketit-text-muted uppercase tracking-wider">Catalog Feed</div>
+                <div className="text-base font-black text-ticketit-navy mt-1 truncate">
+                  {wizardState.dataFileName || 'Catalog Configured'}
+                </div>
+                <div className="text-xs font-bold text-ticketit-green mt-0.5">
+                  ✓ {wizardState.dataRecordCount || 14200} Records Validated
+                </div>
+              </div>
+
+              <div className="bg-ticketit-bg-light/60 border border-ticketit-border rounded-xl p-4">
+                <div className="text-[10px] font-bold text-ticketit-text-muted uppercase tracking-wider">Regional Stores</div>
+                <div className="text-base font-black text-ticketit-navy mt-1">
+                  {wizardState.numberOfStores || 10} Stores Provisioned
+                </div>
+                <div className="text-xs font-bold text-ticketit-navy mt-0.5">
+                  Across {wizardState.regions?.length || 2} Territories
+                </div>
+              </div>
+            </div>
+
+            {/* Reconciliation Audit Checklist */}
+            <div className="bg-white border border-ticketit-border rounded-xl p-6 shadow-card space-y-4">
+              <div className="flex items-center justify-between pb-3 border-b border-ticketit-border">
+                <h3 className="text-xs font-black uppercase tracking-wider text-ticketit-navy">
+                  Pre-Flight Provisioning Audit
+                </h3>
+                <span className="text-[11px] font-bold text-ticketit-green bg-ticketit-green-light px-2.5 py-0.5 rounded-full">
+                  100% Ready
+                </span>
+              </div>
+
+              <div className="space-y-3">
+                {[
+                  { title: 'Brand Identity & Logo', desc: `${wizardState.clientName || 'Client'} with vector logo asset registered.` },
+                  { title: 'Catalog Feed & Mappings', desc: `${wizardState.dataRecordCount || 14200} rows mapped with SKU, Barcode and Price definitions.` },
+                  { title: 'In-Store Ticket Layout', desc: `${wizardState.paperSize || 'A4'} layout configured with CMYK output and crop marks.` },
+                  { title: 'Regional Deployment', desc: `${wizardState.regions?.length || 2} territories ready for Electronic Shelf Label sync.` },
+                ].map((audit, i) => (
+                  <div key={i} className="flex items-start gap-3 p-3 rounded-lg bg-ticketit-bg-light/40 border border-ticketit-border-light">
+                    <div className="w-5 h-5 rounded-full bg-ticketit-green text-white flex items-center justify-center text-xs font-bold mt-0.5 flex-shrink-0">
+                      ✓
+                    </div>
+                    <div>
+                      <div className="text-xs font-bold text-ticketit-navy">{audit.title}</div>
+                      <div className="text-[11px] text-ticketit-text-muted">{audit.desc}</div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

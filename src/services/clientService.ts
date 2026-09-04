@@ -39,7 +39,16 @@ export const ClientService = {
         localStorage.setItem(CLIENTS_STORAGE_KEY, JSON.stringify(seeded));
         return seeded;
       }
-      return JSON.parse(stored);
+      const parsed: Client[] = JSON.parse(stored);
+      // Check if any INITIAL_CLIENTS are missing from stored
+      const existingCodes = new Set(parsed.map((p) => p.code));
+      const missing = INITIAL_CLIENTS.filter((c) => !existingCodes.has(c.code));
+      if (missing.length > 0) {
+        const merged = [...parsed, ...missing];
+        localStorage.setItem(CLIENTS_STORAGE_KEY, JSON.stringify(merged));
+        return merged;
+      }
+      return parsed;
     } catch {
       return INITIAL_CLIENTS;
     }

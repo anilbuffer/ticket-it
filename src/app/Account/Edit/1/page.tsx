@@ -103,28 +103,29 @@ export default function YourAccountPage() {
 
   return (
     <AppShell>
-      {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
-        <div>
-          <h1 className="text-2xl font-black text-ticketit-navy tracking-tight">Your Account</h1>
-          <p className="text-xs text-ticketit-text-muted mt-0.5">
-            Manage your personal profile, role permissions, assigned store partition, and security credentials.
-          </p>
+      <div className="max-w-3xl mx-auto pb-12">
+        {/* Page Header */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+          <div>
+            <h1 className="text-2xl font-black text-ticketit-navy tracking-tight">Your Account</h1>
+            <p className="text-xs text-ticketit-text-muted mt-0.5">
+              Manage your personal profile, role permissions, assigned store partition, and security credentials.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <span className="text-xs px-3 py-1 rounded bg-ticketit-navy text-white font-bold uppercase tracking-wider">
+              {profile.role}
+            </span>
+            <span className="text-xs px-2.5 py-1 rounded bg-[#EAF7F0] text-ticketit-green border border-[#BDE7CE] font-bold">
+              {profile.group}
+            </span>
+          </div>
         </div>
 
-        <div className="flex items-center gap-2">
-          <span className="text-xs px-3 py-1 rounded bg-ticketit-navy text-white font-bold uppercase tracking-wider">
-            {profile.role}
-          </span>
-          <span className="text-xs px-2.5 py-1 rounded bg-[#EAF7F0] text-ticketit-green border border-[#BDE7CE] font-bold">
-            {profile.group}
-          </span>
-        </div>
-      </div>
-
-      <form onSubmit={handleSaveProfile} className="flex flex-col gap-6 max-w-3xl">
-        {/* General Information Card */}
-        <div className="bg-white border border-ticketit-border rounded-lg p-5 sm:p-6 shadow-sm">
+        <form onSubmit={handleSaveProfile} className="flex flex-col gap-6">
+          {/* General Information Card */}
+          <div className="bg-white border border-ticketit-border rounded-lg p-5 sm:p-6 shadow-sm">
           <div className="flex items-center gap-2 pb-3 border-b border-ticketit-border mb-4">
             <User className="w-4 h-4 text-ticketit-pink" />
             <h2 className="text-xs font-extrabold uppercase tracking-wider text-ticketit-navy">
@@ -271,6 +272,7 @@ export default function YourAccountPage() {
           </Button>
         </div>
       </form>
-    </AppShell>
-  );
+    </div>
+  </AppShell>
+);
 }

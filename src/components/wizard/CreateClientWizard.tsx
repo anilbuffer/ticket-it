@@ -401,7 +401,7 @@ export const CreateClientWizard: React.FC<CreateClientWizardProps> = ({
           </button>
           <Link
             href="/Admin/ImportClient"
-            className="px-5 py-2.5 bg-[#4BAA38] text-white font-bold text-xs uppercase tracking-wider rounded shadow-sm hover:bg-[#3f912e] transition-colors"
+            className="px-5 py-2.5 bg-ticketit-pink text-white font-bold text-xs uppercase tracking-wider rounded shadow-sm hover:bg-ticketit-pink-hover transition-colors"
           >
             Import Client Catalog Feed
           </Link>

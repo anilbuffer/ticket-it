@@ -156,7 +156,7 @@ export default function SessionUsageReportPage() {
         <button
           type="button"
           onClick={() => setSelectedSession(row)}
-          className="text-xs font-bold text-[#0084B4] hover:underline flex items-center gap-1"
+          className="text-xs font-bold text-ticketit-pink hover:text-ticketit-pink-hover hover:underline flex items-center gap-1 transition-colors"
         >
           <Eye className="w-3.5 h-3.5" /> View
         </button>
@@ -181,7 +181,7 @@ export default function SessionUsageReportPage() {
                 value={selectedClient}
                 onChange={(e) => setSelectedClient(e.target.value)}
                 aria-label="Select Client"
-                className="w-full px-3 py-2 text-xs font-medium border border-[#CCD7E2] rounded bg-white text-ticketit-navy focus:border-[#4BAA38] focus:outline-none appearance-none cursor-pointer"
+                className="w-full px-3 py-2 text-xs font-medium border border-[#CCD7E2] rounded bg-white text-ticketit-navy focus:border-ticketit-pink focus:outline-none appearance-none cursor-pointer"
               >
                 {clients.map((c) => (
                   <option key={c} value={c}>
@@ -202,7 +202,7 @@ export default function SessionUsageReportPage() {
                 placeholder="DD/MM/YY"
                 value={fromDate}
                 onChange={(e) => setFromDate(e.target.value)}
-                className="w-full px-3 py-2 text-xs font-medium border border-[#CCD7E2] rounded bg-white text-ticketit-navy focus:border-[#4BAA38] focus:outline-none"
+                className="w-full px-3 py-2 text-xs font-medium border border-[#CCD7E2] rounded bg-white text-ticketit-navy focus:border-ticketit-pink focus:outline-none"
               />
             </div>
 
@@ -216,15 +216,15 @@ export default function SessionUsageReportPage() {
                 placeholder="DD/MM/YY"
                 value={toDate}
                 onChange={(e) => setToDate(e.target.value)}
-                className="w-full px-3 py-2 text-xs font-medium border border-[#CCD7E2] rounded bg-white text-ticketit-navy focus:border-[#4BAA38] focus:outline-none"
+                className="w-full px-3 py-2 text-xs font-medium border border-[#CCD7E2] rounded bg-white text-ticketit-navy focus:border-ticketit-pink focus:outline-none"
               />
             </div>
 
-            {/* 4. SUBMIT Button matching screenshot */}
+            {/* 4. SUBMIT Button matching brand theme */}
             <div className="pt-2">
               <button
                 type="submit"
-                className="inline-flex items-center justify-center px-5 py-2 rounded bg-[#4BAA38] hover:bg-[#3f912e] text-white text-xs font-black uppercase tracking-wider shadow-xs transition-colors cursor-pointer"
+                className="inline-flex items-center justify-center px-6 py-2.5 rounded bg-ticketit-pink hover:bg-ticketit-pink-hover text-white text-xs font-black uppercase tracking-wider shadow-sm transition-all duration-150 cursor-pointer active:scale-[0.98]"
               >
                 SUBMIT
               </button>

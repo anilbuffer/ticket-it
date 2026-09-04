@@ -300,7 +300,7 @@ export default function ImportClientDataPage() {
               </Button>
             )}
             <Button
-              variant="green"
+              variant="pink"
               size="md"
               onClick={handleStartImport}
               disabled={!selectedFile || isProcessing}

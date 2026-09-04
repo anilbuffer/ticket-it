@@ -24,18 +24,18 @@ import { Client } from '@/types';
 
 /* ──────────────── Brand Palette ──────────────── */
 const BRAND = {
-  pink:    '#F73582',
-  navy:    '#2B253E',
-  green:   '#58B97D',
-  greenDk: '#4BAA38',
-  blush:   '#FF7B83',
-  bg:      '#E7EAEF',
-  border:  '#D9DDE5',
-  headerBg:'#E8EDF5',
-  muted:   '#8A92A3',
-  rowEven: '#F8FAFD',
-  rowOdd:  '#FFFFFF',
-  hoverRow:'#FFF2F7',
+  pink:      '#F73582',
+  pinkHover: '#E02772',
+  navy:      '#2B253E',
+  navyHover: '#1E192D',
+  blush:     '#FF7B83',
+  bg:        '#E7EAEF',
+  border:    '#D9DDE5',
+  headerBg:  '#E8EDF5',
+  muted:     '#8A92A3',
+  rowEven:   '#F8FAFD',
+  rowOdd:    '#FFFFFF',
+  hoverRow:  '#FFF2F7',
 };
 
 /* ──────────────── Small UI Helpers ──────────────── */
@@ -125,11 +125,20 @@ export default function DynamicClientPage() {
               href="/DynamicClient/Create"
               className="group inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-xs font-black uppercase tracking-wider shadow-lg transition-all duration-200 self-start sm:self-center"
               style={{
-                background: BRAND.greenDk,
+                background: BRAND.pink,
                 color: '#fff',
+                boxShadow: '0 4px 14px rgba(247, 53, 130, 0.4)',
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = '#3d9230')}
-              onMouseLeave={(e) => (e.currentTarget.style.background = BRAND.greenDk)}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = BRAND.pinkHover;
+                e.currentTarget.style.boxShadow = '0 6px 20px rgba(247, 53, 130, 0.55)';
+                e.currentTarget.style.transform = 'translateY(-1px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = BRAND.pink;
+                e.currentTarget.style.boxShadow = '0 4px 14px rgba(247, 53, 130, 0.4)';
+                e.currentTarget.style.transform = 'translateY(0)';
+              }}
             >
               <Plus className="w-4 h-4 stroke-[3] group-hover:rotate-90 transition-transform duration-200" />
               <span>Create Client</span>
@@ -282,17 +291,17 @@ export default function DynamicClientPage() {
                                 href={`/DynamicClient/Create?clientId=${encodeURIComponent(client.id)}&step=1&readOnly=true`}
                                 className="inline-flex items-center gap-1 px-3 py-1.5 rounded-md text-[11px] font-bold uppercase tracking-wider transition-all duration-150 shadow-xs"
                                 style={{
-                                  background: BRAND.greenDk,
+                                  background: BRAND.navy,
                                   color: '#fff',
                                 }}
                                 title={`Read ${client.name}`}
                                 onMouseEnter={(e) => {
-                                  e.currentTarget.style.background = '#3d9230';
+                                  e.currentTarget.style.background = BRAND.navyHover;
                                   e.currentTarget.style.transform = 'translateY(-1px)';
-                                  e.currentTarget.style.boxShadow = '0 2px 8px rgba(75,170,56,.35)';
+                                  e.currentTarget.style.boxShadow = '0 2px 8px rgba(43,37,62,.35)';
                                 }}
                                 onMouseLeave={(e) => {
-                                  e.currentTarget.style.background = BRAND.greenDk;
+                                  e.currentTarget.style.background = BRAND.navy;
                                   e.currentTarget.style.transform = 'translateY(0)';
                                   e.currentTarget.style.boxShadow = 'none';
                                 }}
@@ -305,17 +314,17 @@ export default function DynamicClientPage() {
                                 href={`/DynamicClient/Create?clientId=${encodeURIComponent(client.id)}&step=1`}
                                 className="inline-flex items-center gap-1 px-3 py-1.5 rounded-md text-[11px] font-bold uppercase tracking-wider transition-all duration-150 shadow-xs"
                                 style={{
-                                  background: BRAND.greenDk,
+                                  background: BRAND.pink,
                                   color: '#fff',
                                 }}
                                 title={`Edit ${client.name}`}
                                 onMouseEnter={(e) => {
-                                  e.currentTarget.style.background = '#3d9230';
+                                  e.currentTarget.style.background = BRAND.pinkHover;
                                   e.currentTarget.style.transform = 'translateY(-1px)';
-                                  e.currentTarget.style.boxShadow = '0 2px 8px rgba(75,170,56,.35)';
+                                  e.currentTarget.style.boxShadow = '0 2px 8px rgba(247,53,130,.35)';
                                 }}
                                 onMouseLeave={(e) => {
-                                  e.currentTarget.style.background = BRAND.greenDk;
+                                  e.currentTarget.style.background = BRAND.pink;
                                   e.currentTarget.style.transform = 'translateY(0)';
                                   e.currentTarget.style.boxShadow = 'none';
                                 }}
@@ -413,9 +422,21 @@ export default function DynamicClientPage() {
           <Link
             href="/DynamicClient/Create"
             className="group inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-xs font-black uppercase tracking-wider shadow-sm transition-all duration-200"
-            style={{ background: BRAND.greenDk, color: '#fff' }}
-            onMouseEnter={(e) => (e.currentTarget.style.background = '#3d9230')}
-            onMouseLeave={(e) => (e.currentTarget.style.background = BRAND.greenDk)}
+            style={{
+              background: BRAND.pink,
+              color: '#fff',
+              boxShadow: '0 2px 8px rgba(247,53,130,.25)',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = BRAND.pinkHover;
+              e.currentTarget.style.boxShadow = '0 4px 12px rgba(247,53,130,.4)';
+              e.currentTarget.style.transform = 'translateY(-1px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = BRAND.pink;
+              e.currentTarget.style.boxShadow = '0 2px 8px rgba(247,53,130,.25)';
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}
           >
             <Plus className="w-4 h-4 stroke-[3] group-hover:rotate-90 transition-transform duration-200" />
             <span>Create Client</span>

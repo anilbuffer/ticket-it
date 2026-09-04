@@ -24,16 +24,16 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
 
   return (
     <header className="bg-ticketit-pink text-white w-full shadow-sm z-40 relative">
-      <div className="max-w-[1700px] mx-auto px-3 sm:px-6 h-20 flex items-center justify-between">
+      <div className="max-w-[1700px] mx-auto px-3 sm:px-6 h-20 flex items-center justify-between relative">
         {/* Left: Home Button */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 z-10">
           <Link
             href="/"
             className="p-1.5 rounded hover:bg-white/15 transition-colors flex items-center justify-center text-white"
             title="TicketIT Home"
             aria-label="TicketIT Home"
           >
-            <Home className="w-5 h-5" />
+            <Home className="w-8 h-8" />
           </Link>
 
           {/* Mobile navigation toggle */}
@@ -49,8 +49,8 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
           )}
         </div>
 
-        {/* Center: Brand Logo using actual brand asset */}
-        <div className="flex-1 flex justify-center items-center select-none">
+        {/* Center: Brand Logo precisely centered */}
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center select-none pointer-events-auto">
           <Link href="/" className="flex flex-col items-center group py-0.5">
             <img
               src="/images/ticketit-logo.png"
@@ -61,7 +61,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
         </div>
 
         {/* Right: Store info & controls */}
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex items-center gap-2 sm:gap-3 z-10">
           <div className="text-right hidden sm:block">
             <div className="text-sm sm:text-lg font-bold text-white leading-tight">
               {currentUser?.storeName || 'StandardStoreSetup'}

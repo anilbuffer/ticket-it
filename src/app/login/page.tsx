@@ -2,10 +2,9 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { LogIn, UserCheck, Check, ChevronDown } from 'lucide-react';
+import { LogIn } from 'lucide-react';
 import { AuthService } from '@/services/authService';
 import { INITIAL_USERS } from '@/mock/initialData';
-import { User } from '@/types';
 import { useToast } from '@/components/ui/ToastContext';
 
 export default function LoginPage() {
@@ -16,38 +15,6 @@ export default function LoginPage() {
   const [password, setPassword] = useState('password123');
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [showDemoSelector, setShowDemoSelector] = useState(false);
-  const [selectedDemoUser, setSelectedDemoUser] = useState<User>(
-    INITIAL_USERS.find((u) => u.username === 'admin.ho') || INITIAL_USERS[0]
-  );
-
-  const demoAccounts = [
-    {
-      label: 'Head Office Super Admin',
-      user: INITIAL_USERS.find((u) => u.username === 'admin.ho') || INITIAL_USERS[0],
-      roleBadge: 'Super Admin',
-      store: 'StandardStoreSetup',
-    },
-    {
-      label: 'Regional Operations Manager',
-      user: INITIAL_USERS.find((u) => u.username === 'rm.auckland') || INITIAL_USERS[3],
-      roleBadge: 'Regional Manager',
-      store: 'Auckland Operations',
-    },
-    {
-      label: 'Franchisee Store Operator',
-      user: INITIAL_USERS.find((u) => u.username === 'fran.albany') || INITIAL_USERS[6],
-      roleBadge: 'Franchisee Operator',
-      store: 'Albany Branch',
-    },
-  ];
-
-  const handleSelectDemo = (demoUser: User) => {
-    setSelectedDemoUser(demoUser);
-    setUsername(demoUser.username);
-    setPassword('password123');
-    setShowDemoSelector(false);
-  };
 
   const handleSignIn = (e: React.FormEvent) => {
     e.preventDefault();
@@ -56,7 +23,6 @@ export default function LoginPage() {
     setTimeout(() => {
       const match =
         INITIAL_USERS.find((u) => u.username.toLowerCase() === username.trim().toLowerCase()) ||
-        selectedDemoUser ||
         INITIAL_USERS[0];
 
       AuthService.loginAs(match);
@@ -160,51 +126,8 @@ export default function LoginPage() {
             </p>
           </div>
 
-          {/* 1-Click Role Switcher */}
-          <div className="relative pt-2">
-            <button
-              type="button"
-              onClick={() => setShowDemoSelector(!showDemoSelector)}
-              className="w-full flex items-center justify-between px-3 py-1.5 rounded-md bg-gray-50 hover:bg-gray-100/90 border border-gray-200 text-xs text-[#4B5565] transition-colors"
-            >
-              <div className="flex items-center gap-1.5 truncate">
-                <UserCheck className="w-3.5 h-3.5 text-[#F73582] shrink-0" />
-                <span className="font-semibold text-[#1E192D]">{selectedDemoUser.name}</span>
-                <span className="text-gray-400">•</span>
-                <span className="text-gray-500 truncate">{selectedDemoUser.role}</span>
-              </div>
-              <ChevronDown className={`w-3.5 h-3.5 text-gray-400 transition-transform ${showDemoSelector ? 'rotate-180' : ''}`} />
-            </button>
-
-            {showDemoSelector && (
-              <div className="absolute bottom-full mb-1 left-0 right-0 bg-white rounded-lg shadow-dropdown border border-gray-200 p-1.5 z-30 flex flex-col gap-1">
-                <div className="text-[10px] font-bold text-gray-400 px-2 py-0.5 uppercase tracking-wider">
-                  Switch Demo User
-                </div>
-                {demoAccounts.map((item) => {
-                  const isSelected = selectedDemoUser.username === item.user.username;
-                  return (
-                    <button
-                      key={item.label}
-                      type="button"
-                      onClick={() => handleSelectDemo(item.user)}
-                      className={`w-full text-left px-2.5 py-1.5 rounded text-xs flex items-center justify-between transition-colors ${
-                        isSelected
-                          ? 'bg-[#FFF5F8] text-[#F73582] font-semibold'
-                          : 'hover:bg-gray-50 text-[#1E192D]'
-                      }`}
-                    >
-                      <div>
-                        <div className="text-xs font-bold">{item.user.name}</div>
-                        <div className="text-[10px] text-gray-500">{item.label}</div>
-                      </div>
-                      {isSelected && <Check className="w-3.5 h-3.5 text-[#F73582]" />}
-                    </button>
-                  );
-                })}
-              </div>
-            )}
-          </div>
+          {/* Empty spacer for bottom alignment */}
+          <div className="hidden md:block" />
         </div>
 
         {/* RIGHT COLUMN: Sign In Form */}

@@ -24,7 +24,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
 
   return (
     <header className="bg-ticketit-pink text-white w-full shadow-sm z-40 relative">
-      <div className="max-w-[1700px] mx-auto px-3 sm:px-6 h-14 flex items-center justify-between">
+      <div className="max-w-[1700px] mx-auto px-3 sm:px-6 h-20 flex items-center justify-between">
         {/* Left: Home Button */}
         <div className="flex items-center gap-2">
           <Link
@@ -55,50 +55,47 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
             <img
               src="/images/ticketit-logo.png"
               alt="TicketIT - The ticketing solution that ticks all the boxes"
-              className="h-8 sm:h-9 w-auto object-contain transition-transform group-hover:scale-[1.02]"
+              className="h-10 sm:h-12 w-auto object-contain transition-transform group-hover:scale-[1.02]"
             />
-            <span className="text-[8.5px] text-white/90 font-bold tracking-widest uppercase -mt-0.5">
-              Connect... Automate... Display
-            </span>
           </Link>
         </div>
 
         {/* Right: Store info & controls */}
         <div className="flex items-center gap-2 sm:gap-3">
           <div className="text-right hidden sm:block">
-            <div className="text-xs sm:text-sm font-bold text-white leading-tight">
+            <div className="text-sm sm:text-lg font-bold text-white leading-tight">
               {currentUser?.storeName || 'StandardStoreSetup'}
             </div>
-            <div className="text-[11px] text-white/80 font-medium leading-none mt-0.5">
+            <div className="text-[12px] text-white/80 font-medium leading-none mt-0.5">
               {currentUser?.branchInfo || 'HeadOffice'}
             </div>
           </div>
 
           {/* Store visual thumbnail / frame matching screenshot */}
-          <div className="w-10 h-7 bg-white rounded border border-white/40 hidden md:flex items-center justify-center p-0.5 shadow-sm overflow-hidden" title="Active Branch Storefront">
+          <div className="w-10 h-10 rounded-xl bg-white border border-white/40 hidden md:flex items-center justify-center p-0.5 shadow-sm overflow-hidden" title="Active Branch Storefront">
             <div className="w-full h-full bg-[#EBF7F0] rounded-[2px] flex items-center justify-center text-ticketit-green">
-              <Store className="w-3.5 h-3.5" />
+              <Store className="w-6 h-6" />
             </div>
           </div>
 
           {/* Settings Icon Button */}
           <Link
             href="/Account/Edit/1"
-            className="w-8 h-8 rounded bg-white hover:bg-[#F2F5F8] text-ticketit-navy flex items-center justify-center transition-transform active:scale-95 shadow-sm"
+            className="w-10 h-10 rounded-xl bg-white hover:bg-[#F2F5F8] text-ticketit-navy flex items-center justify-center transition-transform active:scale-95 shadow-sm"
             title="Settings / Account Administration"
             aria-label="Settings"
           >
-            <Settings className="w-4 h-4 text-ticketit-navy" />
+            <Settings className="w-6 h-6 text-ticketit-navy" />
           </Link>
 
           {/* Logout Icon Button */}
           <Link
             href="/Account/Logout"
-            className="w-8 h-8 rounded bg-white hover:bg-[#F2F5F8] text-ticketit-navy flex items-center justify-center transition-transform active:scale-95 shadow-sm"
+            className="w-10 h-10 rounded-xl bg-white hover:bg-[#F2F5F8] text-ticketit-navy flex items-center justify-center transition-transform active:scale-95 shadow-sm"
             title="Log out"
             aria-label="Log out"
           >
-            <LogOut className="w-4 h-4 text-ticketit-navy" />
+            <LogOut className="w-6 h-6 text-ticketit-navy" />
           </Link>
         </div>
       </div>

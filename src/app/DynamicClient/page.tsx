@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
+import Link from 'next/link';
 import {
   Building2,
   Plus,
@@ -193,26 +194,35 @@ export default function DynamicClientPage() {
       header: 'Actions',
       sortable: false,
       render: (row) => (
-        <TableRowActions
-          onEdit={() => {
-            setFormData({
-              code: row.code,
-              name: row.name,
-              industry: row.industry,
-              activeStores: row.activeStores,
-              activeESLs: row.activeESLs,
-              contactName: row.contactName,
-              contactEmail: row.contactEmail,
-              contactPhone: row.contactPhone,
-              region: row.region,
-              status: row.status,
-              licenseTier: row.licenseTier,
-              currency: row.currency,
-            });
-            setEditingClient(row);
-          }}
-          onDelete={() => setDeletingClient(row)}
-        />
+        <div className="flex items-center gap-1.5 justify-end">
+          <Link
+            href={`/DynamicClient/Create?clientId=${row.id}`}
+            className="px-2.5 py-1 text-[11px] font-bold text-[#0084B4] bg-[#E8F4F9] hover:bg-[#D5EBF5] rounded border border-[#BCE1F0] transition-colors whitespace-nowrap flex items-center gap-1"
+            title="Read / Edit Menu Steps Wizard"
+          >
+            <span>Wizard Steps</span>
+          </Link>
+          <TableRowActions
+            onEdit={() => {
+              setFormData({
+                code: row.code,
+                name: row.name,
+                industry: row.industry,
+                activeStores: row.activeStores,
+                activeESLs: row.activeESLs,
+                contactName: row.contactName,
+                contactEmail: row.contactEmail,
+                contactPhone: row.contactPhone,
+                region: row.region,
+                status: row.status,
+                licenseTier: row.licenseTier,
+                currency: row.currency,
+              });
+              setEditingClient(row);
+            }}
+            onDelete={() => setDeletingClient(row)}
+          />
+        </div>
       ),
     },
   ];
@@ -228,31 +238,14 @@ export default function DynamicClientPage() {
           </p>
         </div>
 
-        {/* Prominent Green CREATE CLIENT Button */}
-        <Button
-          variant="green"
-          size="md"
-          onClick={() => {
-            setFormData({
-              code: '',
-              name: '',
-              industry: 'Supermarket & Grocery',
-              activeStores: 12,
-              activeESLs: 8500,
-              contactName: '',
-              contactEmail: '',
-              contactPhone: '',
-              region: 'Auckland & North Island',
-              status: 'Active',
-              licenseTier: 'Enterprise',
-              currency: 'NZD',
-            });
-            setIsCreateModalOpen(true);
-          }}
-          icon={<Plus className="w-4 h-4 stroke-[3]" />}
+        {/* Prominent Green CREATE CLIENT Button - Opens 9-Step Wizard */}
+        <Link
+          href="/DynamicClient/Create"
+          className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded bg-[#4BAA38] hover:bg-[#3f912e] text-white text-xs font-black uppercase tracking-wider shadow-sm transition-all"
         >
-          CREATE CLIENT
-        </Button>
+          <Plus className="w-4 h-4 stroke-[3]" />
+          <span>CREATE CLIENT</span>
+        </Link>
       </div>
 
       {/* Main Table Container */}

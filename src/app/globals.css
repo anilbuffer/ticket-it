@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --brand-pink: #F73582;
+    --brand-navy: #2B253E;
+    --brand-green: #58B97D;
+    --brand-blush: #FF7B83;
+    --brand-bg: #E7EAEF;
+    --brand-border: #D9DDE5;
+    --brand-header-gray: #E8EDF5;
+  }
+
+  body {
+    background-color: #E7EAEF;
+    color: #2B253E;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+  }
+}
+
+/* Custom Scrollbar for sleek enterprise tables */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F1F4F9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* Data Table utilities */
+.ticketit-table-container {
+  overflow-x: auto;
+  background: #FFFFFF;
+  border: 1px solid #D9DDE5;
+  border-radius: 4px;
+}
+
+.ticketit-th {
+  background-color: #E8EDF5;
+  color: #2B253E;
+  font-weight: 700;
+  font-size: 0.8125rem;
+  letter-spacing: 0.01em;
+  padding: 0.65rem 0.85rem;
+  text-align: left;
+  border-bottom: 1px solid #D9DDE5;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.ticketit-td {
+  padding: 0.625rem 0.85rem;
+  font-size: 0.8125rem;
+  color: #2B253E;
+  border-bottom: 1px solid #EAEFF5;
+  vertical-align: middle;
+}
+
+/* Striped rows */
+.ticketit-row-even {
+  background-color: #FFFFFF;
+}
+
+.ticketit-row-odd {
+  background-color: #F8FAFD;
+}
+
+.ticketit-row-even:hover,
+.ticketit-row-odd:hover {
+  background-color: #FFF2F7;
+}
+
+/* Focus visibility for accessibility */
+*:focus-visible {
+  outline: 2px solid #F73582;
+  outline-offset: 1px;
+}

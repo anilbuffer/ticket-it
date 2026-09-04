@@ -335,14 +335,12 @@ export const CreateClientWizard: React.FC<CreateClientWizardProps> = ({
       // Update existing
       ClientService.updateClientWizard(selectedClientForRead, stateToSave);
       showToast('success', 'Client Configuration Updated', `${stateToSave.clientName} wizard settings updated.`);
-      setCreatedClientId(selectedClientForRead);
-      setIsSubmitted(true);
+      router.push('/DynamicClient');
     } else {
       // Create new
       const created = ClientService.createClientFromWizard(stateToSave);
       showToast('success', 'Client Onboarded Successfully', `${created.name} (${created.code}) created.`);
-      setCreatedClientId(created.id);
-      setIsSubmitted(true);
+      router.push('/DynamicClient');
     }
   };
 
@@ -1650,7 +1648,7 @@ export const CreateClientWizard: React.FC<CreateClientWizardProps> = ({
           <button
             type="button"
             onClick={handleNext}
-            className="px-6 py-2.5 bg-ticketit-green hover:bg-ticketit-green-hover active:bg-[#3D8F5D] text-white text-xs sm:text-sm font-black uppercase tracking-wider rounded-lg shadow-card hover:shadow-dropdown transition-all flex items-center justify-center gap-2 select-none active:scale-95 cursor-pointer"
+            className="px-6 py-2.5 bg-ticketit-pink hover:bg-ticketit-pink-hover active:bg-[#de206d] text-white text-xs sm:text-sm font-black uppercase tracking-wider rounded-lg shadow-card hover:shadow-dropdown transition-all flex items-center justify-center gap-2 select-none active:scale-95 cursor-pointer"
           >
             <span>{nextStepLabel}</span>
             {currentStep < WIZARD_STEPS.length ? (

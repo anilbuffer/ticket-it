@@ -414,78 +414,102 @@ export const CreateClientWizard: React.FC<CreateClientWizardProps> = ({
 
   return (
     <div className="w-full max-w-[1700px] mx-auto pb-12">
-      {/* Top Header & Client Switcher Bar */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4">
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#023E6B] tracking-tight">
-            {selectedClientForRead && selectedClientForRead !== 'NEW'
-              ? `Client Settings: ${wizardState.clientName || 'Existing Client'}`
-              : 'Create Client'}
-          </h1>
-          <div className="text-base sm:text-lg font-bold text-[#023E6B] mt-0.5">
-            Step {currentStep} of 8
+      {/* Top Header & Client Switcher Bar - Brand Themed */}
+      <div className="bg-white border border-ticketit-border rounded-xl p-4 sm:p-5 shadow-card mb-6">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          <div className="flex items-center gap-3.5">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-ticketit-pink via-ticketit-coral to-ticketit-blush flex items-center justify-center text-white shadow-md flex-shrink-0">
+              <Building2 className="w-6 h-6" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h1 className="text-xl sm:text-2xl font-black text-ticketit-navy tracking-tight">
+                  {selectedClientForRead && selectedClientForRead !== 'NEW'
+                    ? `Client Settings: ${wizardState.clientName || 'Existing Client'}`
+                    : 'Create Client Profile'}
+                </h1>
+                <span className="bg-ticketit-pink-light text-ticketit-pink text-[11px] font-extrabold uppercase px-2.5 py-0.5 rounded-full tracking-wider border border-ticketit-pink/20">
+                  Step {currentStep} of {WIZARD_STEPS.length}
+                </span>
+              </div>
+              <p className="text-xs text-ticketit-text-muted mt-0.5 font-medium">
+                In-Store Retail Ticketing & Electronic Shelf Label Provisioning Setup
+              </p>
+            </div>
           </div>
-        </div>
 
-        {/* Client Selector & Quick actions */}
-        <div className="flex flex-wrap items-center gap-2.5">
-          <div className="flex items-center gap-2 bg-white border border-[#D0D7DE] px-3 py-1.5 rounded shadow-sm">
-            <span className="text-xs font-bold text-gray-500 uppercase tracking-wider whitespace-nowrap">
-              Wizard Mode:
-            </span>
-            <select
-              value={selectedClientForRead}
-              onChange={(e) => handleClientSelectChange(e.target.value)}
-              className="text-xs font-semibold text-ticketit-navy bg-transparent focus:outline-none cursor-pointer"
-              aria-label="Select Client Wizard Profile"
+          {/* Client Selector & Quick actions */}
+          <div className="flex flex-wrap items-center gap-2.5">
+            <div className="flex items-center gap-2 bg-ticketit-bg-light border border-ticketit-border px-3 py-1.5 rounded-lg shadow-sm">
+              <span className="text-[11px] font-bold text-ticketit-text-muted uppercase tracking-wider whitespace-nowrap">
+                Mode:
+              </span>
+              <select
+                value={selectedClientForRead}
+                onChange={(e) => handleClientSelectChange(e.target.value)}
+                className="text-xs font-bold text-ticketit-navy bg-transparent focus:outline-none cursor-pointer"
+                aria-label="Select Client Wizard Profile"
+              >
+                <option value="">➕ Create New Client</option>
+                {clientsList.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    📂 {c.name} ({c.code})
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <button
+              type="button"
+              onClick={handleLoadSampleData}
+              className="px-3.5 py-1.5 bg-gradient-to-r from-ticketit-pink-light to-ticketit-pink-subtle border border-ticketit-pink/30 text-xs font-bold text-ticketit-pink rounded-lg hover:border-ticketit-pink shadow-sm flex items-center gap-1.5 transition-all"
+              title="Pre-fill wizard with realistic supermarket retail data"
             >
-              <option value="">➕ Create New Client</option>
-              {clientsList.map((c) => (
-                <option key={c.id} value={c.id}>
-                  📂 Read / Edit: {c.name} ({c.code})
-                </option>
-              ))}
-            </select>
+              <Sparkles className="w-3.5 h-3.5 text-ticketit-pink" />
+              <span>Load Preset Data</span>
+            </button>
+
+            <Link
+              href="/DynamicClient"
+              className="px-3.5 py-1.5 bg-white border border-ticketit-border text-xs font-bold text-ticketit-navy rounded-lg hover:bg-ticketit-bg-light shadow-sm transition-colors"
+            >
+              Back to Clients
+            </Link>
           </div>
-
-          <button
-            type="button"
-            onClick={handleLoadSampleData}
-            className="px-3 py-1.5 bg-white border border-[#D0D7DE] text-xs font-bold text-[#023E6B] rounded hover:bg-gray-50 shadow-sm flex items-center gap-1.5"
-            title="Pre-fill wizard with realistic supermarket retail data"
-          >
-            <Sparkles className="w-3.5 h-3.5 text-ticketit-pink" />
-            <span>Load Sample Data</span>
-          </button>
-
-          <Link
-            href="/DynamicClient"
-            className="px-3 py-1.5 bg-white border border-[#D0D7DE] text-xs font-bold text-gray-600 rounded hover:bg-gray-50 shadow-sm"
-          >
-            Back to Clients
-          </Link>
         </div>
       </div>
 
-      {/* Breadcrumbs / Wizard Steps Horizontal Menu - EXACT VISUAL MATCH TO SCREENSHOT */}
-      <div className="bg-[#F4F6F9] border border-[#D0D7DE] rounded px-3 py-2.5 sm:px-4 sm:py-3 mb-6 shadow-sm overflow-x-auto no-scrollbar">
-        <div className="flex items-center gap-1.5 sm:gap-2 min-w-max text-xs sm:text-[13px] font-bold tracking-wide uppercase">
+      {/* Breadcrumbs / Wizard Steps Horizontal Menu - TicketIT Brand Design */}
+      <div className="bg-white border border-ticketit-border rounded-xl p-2 sm:p-3 mb-6 shadow-card overflow-x-auto no-scrollbar">
+        <div className="flex items-center gap-1.5 sm:gap-2 min-w-max text-xs font-bold tracking-wide uppercase">
           {WIZARD_STEPS.map((step, index) => {
             const isActive = currentStep === step.id;
+            const isCompleted = currentStep > step.id;
             return (
               <React.Fragment key={step.id}>
-                {index > 0 && <span className="text-gray-400 font-normal select-none px-1">/</span>}
+                {index > 0 && <span className="text-ticketit-border font-bold select-none px-1">/</span>}
                 <button
                   type="button"
                   onClick={() => goToStep(step.id)}
-                  className={`transition-colors whitespace-nowrap select-none ${
+                  className={`px-3 py-1.5 rounded-lg transition-all whitespace-nowrap select-none flex items-center gap-1.5 ${
                     isActive
-                      ? 'text-[#1E293B] font-black underline decoration-2 underline-offset-4'
-                      : 'text-[#0084B4] hover:text-[#005f82] hover:underline font-bold'
+                      ? 'bg-ticketit-navy text-white shadow-sm font-black ring-2 ring-ticketit-pink/30'
+                      : isCompleted
+                      ? 'text-ticketit-green hover:bg-ticketit-green-light font-bold'
+                      : 'text-ticketit-text-muted hover:text-ticketit-navy hover:bg-ticketit-bg-light font-semibold'
                   }`}
                   title={`Navigate to Step ${step.id}: ${step.title}`}
                 >
-                  {step.label}
+                  <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-black ${
+                    isActive
+                      ? 'bg-ticketit-pink text-white'
+                      : isCompleted
+                      ? 'bg-ticketit-green text-white'
+                      : 'bg-ticketit-border text-ticketit-text-muted'
+                  }`}>
+                    {isCompleted ? '✓' : step.id}
+                  </span>
+                  <span>{step.label}</span>
                 </button>
               </React.Fragment>
             );
@@ -494,59 +518,258 @@ export const CreateClientWizard: React.FC<CreateClientWizardProps> = ({
       </div>
 
       {/* Main Card Container */}
-      <div className="bg-[#F7F9FB] border border-[#D0D7DE] rounded p-5 sm:p-7 shadow-sm mb-6">
+      <div className="bg-white border border-ticketit-border rounded-xl p-6 sm:p-8 shadow-card mb-6">
         {/* Step Card Heading */}
         {currentStep !== 8 && (
-          <h2 className="text-2xl font-bold text-[#24292F] mb-6">
-            {currentStep === 9 ? 'Verify Client Data' : currentStepObj.title}
-          </h2>
+          <div className="flex items-center justify-between pb-5 mb-6 border-b border-ticketit-border-light">
+            <div>
+              <h2 className="text-xl sm:text-2xl font-black text-ticketit-navy tracking-tight">
+                {currentStep === 9 ? 'Verify Client Configuration' : currentStepObj.title}
+              </h2>
+              <p className="text-xs text-ticketit-text-muted mt-0.5">
+                {currentStep === 1
+                  ? 'Define the primary trading name and visual brand mark for client ticketing'
+                  : 'Configure the parameters for this step'}
+              </p>
+            </div>
+            <div className="hidden sm:flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-ticketit-green animate-pulse" />
+              <span className="text-xs font-bold text-ticketit-green uppercase tracking-wider">
+                Active Setup Mode
+              </span>
+            </div>
+          </div>
         )}
 
-        {/* STEP 1: NAME AND LOGO - EXACT MATCH TO REFERENCE SCREENSHOT */}
+        {/* STEP 1: NAME AND LOGO - PREMIUM ENHANCED & BRAND INTEGRATED */}
         {currentStep === 1 && (
-          <div className="space-y-5 max-w-4xl">
-            {/* Name Field */}
-            <div>
-              <label className="block text-sm font-bold text-[#24292F] mb-1.5">
-                Name
-              </label>
-              <input
-                type="text"
-                value={wizardState.clientName}
-                onChange={(e) => {
-                  const val = e.target.value;
-                  setWizardState({
-                    ...wizardState,
-                    clientName: val,
-                    clientCode: wizardState.clientCode || val.replace(/[^A-Za-z0-9]/g, '').slice(0, 8).toUpperCase(),
-                  });
-                }}
-                className="w-full px-3 py-2 text-sm bg-white border border-[#D0D7DE] rounded text-[#24292F] focus:border-[#4BAA38] focus:outline-none"
-              />
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            {/* Left Column: Form Controls (7 cols) */}
+            <div className="lg:col-span-7 space-y-6">
+              {/* Client Name Input Field */}
+              <div className="bg-ticketit-bg-light/60 border border-ticketit-border rounded-xl p-5 space-y-3">
+                <div className="flex items-center justify-between">
+                  <label htmlFor="client-name-input" className="block text-xs font-black text-ticketit-navy uppercase tracking-wider">
+                    Name <span className="text-ticketit-pink">*</span>
+                  </label>
+                  <span className="text-[10px] font-bold text-ticketit-pink bg-ticketit-pink-light px-2 py-0.5 rounded-full uppercase tracking-wider">
+                    Required
+                  </span>
+                </div>
+                
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-ticketit-text-muted">
+                    <Store className="w-4 h-4 text-ticketit-pink" />
+                  </div>
+                  <input
+                    id="client-name-input"
+                    type="text"
+                    value={wizardState.clientName}
+                    placeholder="e.g. SuperValu Stores NZ"
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      setWizardState({
+                        ...wizardState,
+                        clientName: val,
+                        clientCode: wizardState.clientCode || val.replace(/[^A-Za-z0-9]/g, '').slice(0, 8).toUpperCase(),
+                      });
+                    }}
+                    className="w-full pl-10 pr-4 py-2.5 text-sm bg-white border border-ticketit-border rounded-lg text-ticketit-navy font-semibold placeholder:text-ticketit-text-light placeholder:font-normal focus:border-ticketit-pink focus:ring-4 focus:ring-ticketit-pink/10 focus:outline-none transition-all shadow-sm"
+                  />
+                </div>
+
+                {/* Quick Presets for Instant Testing */}
+                <div className="flex flex-wrap items-center gap-1.5 pt-1">
+                  <span className="text-[11px] font-bold text-ticketit-text-muted mr-1">
+                    Quick suggestions:
+                  </span>
+                  {['SuperValu Stores', 'FreshChoice Metro', 'Countdown Retail', 'Pak\'nSave Hypermarket'].map((preset) => (
+                    <button
+                      key={preset}
+                      type="button"
+                      onClick={() => {
+                        setWizardState({
+                          ...wizardState,
+                          clientName: preset,
+                          clientCode: preset.replace(/[^A-Za-z0-9]/g, '').slice(0, 6).toUpperCase(),
+                        });
+                        showToast('info', 'Preset Applied', `Set name to ${preset}`);
+                      }}
+                      className="text-[11px] font-bold px-2 py-0.5 bg-white border border-ticketit-border rounded-md text-ticketit-navy hover:text-ticketit-pink hover:border-ticketit-pink/40 shadow-xs transition-colors"
+                    >
+                      + {preset}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Logo Upload Section - Signature Brand Green & Interactive Dropzone */}
+              <div className="bg-ticketit-bg-light/60 border border-ticketit-border rounded-xl p-5 space-y-3.5">
+                <div className="flex items-center justify-between">
+                  <label className="block text-xs font-black text-ticketit-navy uppercase tracking-wider">
+                    Logo
+                  </label>
+                  <span className="text-[10px] font-bold text-ticketit-green bg-ticketit-green-light px-2 py-0.5 rounded-full uppercase tracking-wider">
+                    Brand Vector / Raster
+                  </span>
+                </div>
+
+                {/* Signature Brand Green File Selector Bar */}
+                <div className="bg-gradient-to-r from-ticketit-green to-[#4AA46C] rounded-lg p-2 flex items-center justify-between gap-3 shadow-sm border border-ticketit-green">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <label className="bg-white hover:bg-ticketit-pink-subtle text-ticketit-navy text-xs font-black px-3.5 py-1.5 rounded-md border border-white/60 shadow-xs cursor-pointer whitespace-nowrap transition-all flex items-center gap-1.5 flex-shrink-0 active:scale-95">
+                      <Upload className="w-3.5 h-3.5 text-ticketit-green" />
+                      <span>Choose File</span>
+                      <input
+                        type="file"
+                        accept="image/png,image/jpeg,image/jpg,image/svg+xml"
+                        onChange={handleLogoUpload}
+                        className="hidden"
+                      />
+                    </label>
+                    <span className="text-white text-xs sm:text-sm font-extrabold uppercase tracking-wider truncate">
+                      {wizardState.logoFileName || 'NO FILE CHOSEN'}
+                    </span>
+                  </div>
+
+                  {wizardState.logoFileName && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setWizardState((prev) => ({
+                          ...prev,
+                          logoFileName: '',
+                          logoUrl: undefined,
+                        }));
+                        showToast('info', 'Logo Removed', 'Brand logo cleared.');
+                      }}
+                      className="text-white/80 hover:text-white p-1 hover:bg-black/10 rounded transition-colors"
+                      title="Clear logo"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  )}
+                </div>
+
+                <p className="text-xs text-ticketit-navy font-semibold flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-ticketit-pink inline-block" />
+                  Please upload a file of type png or jpg
+                </p>
+
+                {/* Sample Logos Selector for Instant Rich Experience */}
+                <div className="pt-2 border-t border-ticketit-border">
+                  <div className="text-[11px] font-bold text-ticketit-text-muted uppercase tracking-wider mb-2">
+                    Or select sample retail brand logo:
+                  </div>
+                  <div className="grid grid-cols-3 gap-2">
+                    {[
+                      { name: 'SuperValu Red', bg: 'bg-[#C8102E]', text: 'SUPERVALU' },
+                      { name: 'FreshChoice Green', bg: 'bg-[#007A3D]', text: 'FreshChoice' },
+                      { name: 'Metro Retail Navy', bg: 'bg-ticketit-navy', text: 'METRO' },
+                    ].map((sample) => (
+                      <button
+                        key={sample.name}
+                        type="button"
+                        onClick={() => {
+                          setWizardState((prev) => ({
+                            ...prev,
+                            logoFileName: `${sample.name.toLowerCase().replace(/\s+/g, '_')}_logo.png`,
+                            logoUrl: sample.bg,
+                          }));
+                          showToast('success', 'Logo Attached', `Applied ${sample.name} badge.`);
+                        }}
+                        className="p-2 bg-white border border-ticketit-border hover:border-ticketit-pink/50 rounded-lg flex items-center justify-center gap-1.5 text-xs font-bold text-ticketit-navy shadow-2xs hover:shadow-xs transition-all group"
+                      >
+                        <span className={`w-3 h-3 rounded-full ${sample.bg}`} />
+                        <span className="truncate group-hover:text-ticketit-pink">{sample.name}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
 
-            {/* Logo Field */}
-            <div>
-              <label className="block text-sm font-bold text-[#24292F] mb-1.5">
-                Logo
-              </label>
-              <div className="bg-[#4BAA38] rounded p-1.5 sm:p-2 flex items-center gap-3 shadow-inner">
-                <label className="bg-[#ECEFF3] hover:bg-white text-[#24292F] text-xs font-bold px-3 py-1.5 rounded border border-[#BFC8D2] shadow-sm cursor-pointer whitespace-nowrap transition-colors">
-                  Choose File
-                  <input
-                    type="file"
-                    accept="image/png,image/jpeg,image/jpg"
-                    onChange={handleLogoUpload}
-                    className="hidden"
-                  />
-                </label>
-                <span className="text-white text-xs sm:text-sm font-bold uppercase tracking-wider truncate">
-                  {wizardState.logoFileName || 'NO FILE CHOSEN'}
-                </span>
+            {/* Right Column: Live Retail Preview & Simulation (5 cols) */}
+            <div className="lg:col-span-5 space-y-4">
+              <div className="bg-gradient-to-br from-ticketit-bg-light via-white to-ticketit-pink-subtle/30 border border-ticketit-border rounded-xl p-5 shadow-card">
+                <div className="flex items-center justify-between pb-3 mb-4 border-b border-ticketit-border">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-ticketit-green animate-ping" />
+                    <h3 className="text-xs font-black uppercase tracking-wider text-ticketit-navy">
+                      Live Retail Preview
+                    </h3>
+                  </div>
+                  <span className="text-[10px] font-extrabold text-ticketit-pink bg-ticketit-pink-light px-2 py-0.5 rounded-full uppercase tracking-wider">
+                    In-Store Sync
+                  </span>
+                </div>
+
+                {/* Realistic Shelf Talker / Ticket Preview */}
+                <div className="bg-white border-2 border-dashed border-ticketit-border rounded-xl p-4 shadow-sm relative overflow-hidden">
+                  {/* Top Ticket Header */}
+                  <div className="flex items-center justify-between pb-2 mb-3 border-b border-gray-100">
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 rounded bg-ticketit-navy flex items-center justify-center text-white text-[10px] font-black">
+                        {wizardState.clientName ? wizardState.clientName.charAt(0).toUpperCase() : 'T'}
+                      </div>
+                      <span className="text-xs font-black text-ticketit-navy truncate max-w-[140px]">
+                        {wizardState.clientName || 'Client Name Preview'}
+                      </span>
+                    </div>
+                    <span className="text-[9px] font-bold text-white bg-ticketit-green px-1.5 py-0.5 rounded uppercase">
+                      Active
+                    </span>
+                  </div>
+
+                  {/* Product Sample on Ticket */}
+                  <div className="space-y-1.5 text-left">
+                    <div className="text-[10px] font-bold text-ticketit-text-muted uppercase tracking-wider">
+                      Dairy & Eggs • Chilled
+                    </div>
+                    <div className="text-xs font-black text-ticketit-navy">
+                      Anchor Fresh Whole Milk 2L
+                    </div>
+                    <div className="flex items-baseline gap-2 pt-1">
+                      <span className="text-lg font-black text-ticketit-pink tracking-tight">
+                        $3.99
+                      </span>
+                      <span className="text-xs font-bold text-gray-400 line-through">
+                        $4.89
+                      </span>
+                      <span className="text-[10px] font-extrabold text-ticketit-green bg-ticketit-green-light px-1.5 py-0.2 rounded">
+                        SAVE $0.90
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Simulated Barcode */}
+                  <div className="mt-3 pt-2 border-t border-gray-100 flex items-center justify-between text-[10px] text-ticketit-text-muted font-mono">
+                    <span>||| |||| || ||||| |||</span>
+                    <span>9414800104921</span>
+                  </div>
+                </div>
+
+                {/* Quick Status Checklist */}
+                <div className="mt-4 pt-3 border-t border-ticketit-border space-y-2">
+                  <div className="text-[11px] font-bold text-ticketit-navy uppercase tracking-wider">
+                    Configuration Status:
+                  </div>
+                  <div className="space-y-1.5">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-ticketit-text-muted">Trading Name:</span>
+                      <span className={`font-bold ${wizardState.clientName ? 'text-ticketit-green' : 'text-gray-400'}`}>
+                        {wizardState.clientName ? '✓ Specified' : 'Pending input'}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-ticketit-text-muted">Brand Logo:</span>
+                      <span className={`font-bold ${wizardState.logoFileName ? 'text-ticketit-green' : 'text-gray-400'}`}>
+                        {wizardState.logoFileName ? '✓ Logo Attached' : 'Default Badge'}
+                      </span>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <p className="text-xs text-[#24292F] mt-2 font-medium">
-                Please upload a file of type png or jpg
-              </p>
             </div>
           </div>
         )}
@@ -2007,24 +2230,31 @@ export const CreateClientWizard: React.FC<CreateClientWizardProps> = ({
         )}
       </div>
 
-      {/* Signature Bottom Action Button Bar - EXACT MATCH TO REFERENCE SCREENSHOT */}
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2">
+      {/* Signature Bottom Action Button Bar - Brand Themed */}
+      <div className="bg-white border border-ticketit-border rounded-xl p-4 sm:p-5 shadow-card flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
         {/* Previous Step Button */}
         <div>
-          {currentStep > 1 && (
+          {currentStep > 1 ? (
             <button
               type="button"
               onClick={handlePrevious}
-              className="px-5 py-2.5 bg-white border border-[#D0D7DE] text-xs font-extrabold uppercase tracking-wider text-[#023E6B] rounded hover:bg-gray-50 transition-colors shadow-sm flex items-center gap-1.5"
+              className="px-5 py-2.5 bg-white border border-ticketit-border text-xs font-black uppercase tracking-wider text-ticketit-navy rounded-lg hover:bg-ticketit-bg-light transition-all shadow-sm flex items-center gap-2 active:scale-95"
             >
-              <ArrowLeft className="w-4 h-4" />
+              <ArrowLeft className="w-4 h-4 text-ticketit-pink" />
               <span>{prevStepLabel}</span>
             </button>
+          ) : (
+            <Link
+              href="/DynamicClient"
+              className="px-5 py-2.5 bg-white border border-ticketit-border text-xs font-bold uppercase tracking-wider text-ticketit-text-muted hover:text-ticketit-navy rounded-lg hover:bg-ticketit-bg-light transition-all shadow-sm inline-flex items-center gap-2"
+            >
+              Cancel Setup
+            </Link>
           )}
         </div>
 
-        {/* Next / Submit Button - Prominent Green Button matching image */}
-        <div className="flex items-center gap-3">
+        {/* Next / Submit Button - Prominent TicketIT Brand Green Action */}
+        <div className="flex items-center justify-end gap-3">
           <button
             type="button"
             onClick={() => {
@@ -2035,25 +2265,31 @@ export const CreateClientWizard: React.FC<CreateClientWizardProps> = ({
                 showToast('info', 'Draft Kept', 'Configuration retained in session.');
               }
             }}
-            className="px-4 py-2.5 text-xs font-bold text-gray-600 hover:text-ticketit-navy underline"
+            className="px-4 py-2 text-xs font-bold text-ticketit-text-muted hover:text-ticketit-pink transition-colors"
           >
-            Save Progress
+            Save Draft
           </button>
 
           <button
             type="button"
             onClick={handleNext}
-            className="px-6 py-2.5 bg-[#4BAA38] hover:bg-[#3f912e] active:bg-[#347b25] text-white text-xs sm:text-sm font-extrabold uppercase tracking-wider rounded shadow-md transition-all flex items-center justify-center gap-2 select-none"
+            className="px-6 py-2.5 bg-ticketit-green hover:bg-ticketit-green-hover active:bg-[#3D8F5D] text-white text-xs sm:text-sm font-black uppercase tracking-wider rounded-lg shadow-card hover:shadow-dropdown transition-all flex items-center justify-center gap-2 select-none active:scale-95 cursor-pointer"
           >
             <span>{nextStepLabel}</span>
-            {currentStep < 9 && <ArrowRight className="w-4 h-4 stroke-[3]" />}
+            {currentStep < WIZARD_STEPS.length ? (
+              <ArrowRight className="w-4 h-4 stroke-[3]" />
+            ) : (
+              <Check className="w-4 h-4 stroke-[3]" />
+            )}
           </button>
         </div>
       </div>
 
-      {/* Copyright Footer matching reference */}
-      <div className="text-center text-xs font-bold text-[#24292F] mt-8 pt-4">
-        © 2026 Scarlett Eden Limited
+      {/* Copyright & System Footer */}
+      <div className="text-center text-xs font-bold text-ticketit-text-muted mt-8 pt-2 flex items-center justify-center gap-2">
+        <span>© 2026 TicketIT In-Store Retail Management</span>
+        <span>•</span>
+        <span className="text-ticketit-pink">Enterprise Provisioning Engine</span>
       </div>
     </div>
   );

@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="360" viewBox="0 0 360 360" fill="none">
+  <!-- Retail & Tech Doodles repeating watermark pattern -->
+  <g stroke="#94A3B8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.28">
+    <!-- Shopping Bag (top left) -->
+    <path d="M45 42h26l4 24H37l4-24z" />
+    <path d="M52 42v-5a6 6 0 0 1 12 0v5" />
+    <path d="M54 52h8" />
+
+    <!-- Price Tag (top center) -->
+    <path d="M165 30l22 22-18 18-22-22V30h18z" />
+    <circle cx="156" cy="39" r="2.5" fill="#94A3B8" />
+
+    <!-- Barcode / Ticket (top right) -->
+    <rect x="270" y="32" width="44" height="28" rx="3" />
+    <line x1="278" y1="38" x2="278" y2="54" />
+    <line x1="283" y1="38" x2="283" y2="54" stroke-width="2.5" />
+    <line x1="289" y1="38" x2="289" y2="54" />
+    <line x1="294" y1="38" x2="294" y2="54" stroke-width="2" />
+    <line x1="300" y1="38" x2="300" y2="54" />
+    <line x1="305" y1="38" x2="305" y2="54" stroke-width="2" />
+
+    <!-- Mobile Screen / Device (left middle) -->
+    <rect x="35" y="125" width="26" height="42" rx="4" />
+    <line x1="43" y1="160" x2="53" y2="160" />
+    <rect x="40" y="131" width="16" height="22" rx="1" stroke-dasharray="2 2" />
+
+    <!-- Discount % Bubble (center-left) -->
+    <circle cx="130" cy="135" r="18" />
+    <path d="M124 141l12-12" />
+    <circle cx="124" cy="130" r="1.5" fill="#94A3B8" />
+    <circle cx="136" cy="140" r="1.5" fill="#94A3B8" />
+
+    <!-- Speech bubble with IT (center) -->
+    <path d="M210 120h30a6 6 0 0 1 6 6v14a6 6 0 0 1-6 6h-14l-8 7v-7h-8a6 6 0 0 1-6-6v-14a6 6 0 0 1 6-6z" />
+    <path d="M220 130v6" />
+    <path d="M228 130h6v6h-6" />
+
+    <!-- Lightbulb (right center) -->
+    <path d="M305 130a11 11 0 0 0-7 18c1.5 2 2 3.5 2 5.5h10c0-2 .5-3.5 2-5.5a11 11 0 0 0-7-18z" />
+    <line x1="302" y1="157" x2="308" y2="157" />
+
+    <!-- Shopping Cart (bottom left) -->
+    <circle cx="42" cy="250" r="3" />
+    <circle cx="60" cy="250" r="3" />
+    <path d="M30 225h8l7 18h18l5-13H42" />
+
+    <!-- Monitor / ESL Display (bottom center-left) -->
+    <rect x="120" y="220" width="36" height="24" rx="2" />
+    <path d="M138 244v8" />
+    <path d="M130 252h16" />
+    <path d="M127 228h22" stroke-dasharray="2 2" />
+
+    <!-- Checkmark in Badge / Shield (bottom center) -->
+    <circle cx="230" cy="235" r="16" />
+    <path d="M222 235l5 5 11-11" />
+
+    <!-- Star (bottom right) -->
+    <polygon points="305,215 310,227 323,227 312,235 316,247 305,239 294,247 298,235 287,227 300,227" />
+
+    <!-- Small decorative icons / accents -->
+    <!-- Thumbs up -->
+    <path d="M85 85v10a2 2 0 0 0 2 2h4l4-8v-6a2 2 0 0 0-2-2h-5l1-4a2 2 0 0 0-2-2l-2 5-2 5z" />
+
+    <!-- Gear / Settings -->
+    <circle cx="215" cy="65" r="7" />
+    <path d="M215 54v3m0 16v3m-8-11h3m16 0h3m-14-6l2 2m10 10l2 2m-14 0l2-2m10-10l2-2" />
+
+    <!-- Search Magnifier -->
+    <circle cx="330" cy="85" r="7" />
+    <line x1="335" y1="90" x2="343" y2="98" />
+
+    <!-- Cursor / Arrow -->
+    <path d="M75 185l12 4-5 3 4 7-3 1-4-7-4 4v-12z" />
+
+    <!-- Gift / Box -->
+    <rect x="175" y="175" width="22" height="20" rx="2" />
+    <line x1="175" y1="184" x2="197" y2="184" />
+    <line x1="186" y1="175" x2="186" y2="195" />
+
+    <!-- Cloud with Arrow -->
+    <path d="M270 175a7 7 0 0 1 12 0 6 6 0 0 1 2 9h-16a5 5 0 0 1 2-9z" />
+    <path d="M276 182l2-2 2 2" />
+
+    <!-- Document / Invoice -->
+    <path d="M80 300h18l7 7v18H80z" />
+    <path d="M98 300v7h7" />
+    <line x1="85" y1="312" x2="98" y2="312" />
+    <line x1="85" y1="318" x2="94" y2="318" />
+
+    <!-- Heart / Loyalty -->
+    <path d="M175 305c-3-4-8-4-10 0-2 4 1 8 10 13 9-5 12-9 10-13-2-4-7-4-10 0z" />
+
+    <!-- QR Code Mini Grid -->
+    <rect x="250" y="295" width="22" height="22" rx="2" />
+    <rect x="254" y="299" width="5" height="5" />
+    <rect x="263" y="299" width="5" height="5" />
+    <rect x="254" y="308" width="5" height="5" />
+    <rect x="264" y="309" width="3" height="3" />
+
+    <!-- Shopping Tag -->
+    <path d="M330 290l14 14-10 10-14-14v-10h10z" />
+    <circle cx="325" cy="295" r="1.5" fill="#94A3B8" />
+  </g>
+</svg>
